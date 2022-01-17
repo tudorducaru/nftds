@@ -57,6 +57,16 @@ app.post('/admin/login', (req, res, next) => {
     )
 });
 
+// Admin logout route
+app.post('/admin/logout', (req, res, next) => {
+
+    // Clear cookies
+    res.clearCookie('jwt');
+    res.clearCookie('ath');
+    return res.send();
+
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
