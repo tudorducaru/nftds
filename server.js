@@ -67,6 +67,28 @@ app.post('/admin/logout', (req, res, next) => {
 
 });
 
+/*
+    Middleware that authenticates requests
+    Extracts the token from the cookie
+    and verifies its validity
+*/
+const authenticateReq = (req, res, next) => {
+
+    // Retrieve jwt from cookie
+    const token = req.cookies.jwt;
+    
+    if (!token) return res.status(403).send('JWT token not provided');
+
+    // Verify the token
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+
+        if (err) return res.status(403).send('JWT token invalid');
+        
+        next();
+
+    });
+};
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
