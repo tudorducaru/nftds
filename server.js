@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const uuid = require('uuid');
 
 const express = require('express');
 const app = express();
@@ -64,6 +65,56 @@ app.post('/admin/logout', (req, res, next) => {
     res.clearCookie('jwt');
     res.clearCookie('ath');
     return res.send();
+
+});
+
+// Insert new project route
+app.post('/admin/projects', (req, res, next) => {
+
+    // Check that all fields are in the request body
+    if (
+        !req.body ||
+        !req.body.invite_url ||
+        req.body.fakemeter === 'undefined' ||
+        !req.body.mint_date || 
+        !req.body.mint_amount ||
+        !req.body.website_link ||
+        !req.body.twitter_link
+    ) {
+        return res.status(400).send('Incomplete information in request body');
+    }
+
+    // Get project information
+    const id = uuid.v1();
+    const invite_url = req.body.invite_url;
+    const fakemeter = req.body.fakemeter;
+    const mint_date = req.body.mint_date;
+    const mint_amount = req.body.mint_amount;
+    const website_link = req.body.website_link;
+    const twitter_link = req.body.twitter_link;
+
+    // Insert the project into the database
+    dbConnection.query(
+        'INSERT INTO projects VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [id, invite_url, fakemeter, mint_date, mint_amount, website_link, twitter_link],
+        (err, results) => {
+
+            // Check if there were any errors
+            if (err) return res.status(500).send('Internal server error');
+
+            // Send back the project object
+            return res.status(201).send({
+                id,
+                invite_url,
+                fakemeter,
+                mint_date,
+                mint_amount,
+                website_link,
+                twitter_link
+            });
+
+        }
+    );
 
 });
 
