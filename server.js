@@ -118,6 +118,21 @@ app.post('/admin/projects', (req, res, next) => {
 
 });
 
+// Get projects route
+app.get('/projects', (req, res, next) => {
+
+    // Query the database
+    dbConnection.query('SELECT * FROM projects', (err, results) => {
+
+        // Check if there were any errors
+        if (err) return res.status(500).send('Internal server error');
+
+        return res.send(results);
+
+    });
+
+});
+
 /*
     Middleware that authenticates requests
     Extracts the token from the cookie
