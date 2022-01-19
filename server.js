@@ -153,6 +153,48 @@ app.delete('/admin/projects/:projectID', (req, res, next) => {
 
 });
 
+// Update project route
+app.put('/admin/projects/:projectID', (req, res, next) => {
+
+    // Check that all fields are in the request body
+    if (
+        !req.body ||
+        !req.body.invite_url ||
+        req.body.fakemeter === 'undefined' ||
+        !req.body.mint_date || 
+        !req.body.mint_amount ||
+        !req.body.website_link ||
+        !req.body.twitter_link
+    ) {
+        return res.status(400).send('Incomplete information in request body');
+    }
+
+    // Get project information
+    const id = req.params.projectID;
+    const invite_url = req.body.invite_url;
+    const fakemeter = req.body.fakemeter;
+    const mint_date = req.body.mint_date;
+    const mint_amount = req.body.mint_amount;
+    const website_link = req.body.website_link;
+    const twitter_link = req.body.twitter_link;
+
+    // Update the row in the database
+    dbConnection.query(
+        'UPDATE projects SET invite_url = ?, fakemeter = ?, mint_date = ?, mint_amount = ?, website_link = ?, twitter_link = ? WHERE id = ?',
+        [invite_url, fakemeter, mint_date, mint_amount, website_link, twitter_link, id],
+        (err, results) => {
+
+            // Check if there were any errors
+            if (err) return res.status(500).send('Internal server error');
+
+            // Send back the number of rows affected
+            return res.send(results.affectedRows.toString());
+
+        }    
+    )
+
+});
+
 /*
     Middleware that authenticates requests
     Extracts the token from the cookie
