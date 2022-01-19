@@ -133,6 +133,26 @@ app.get('/projects', (req, res, next) => {
 
 });
 
+// Delete project route
+app.delete('/admin/projects/:projectID', (req, res, next) => {
+
+    // Delete the project from the database
+    dbConnection.query(
+        'DELETE FROM projects WHERE id = ?',
+        [req.params.projectID],
+        (err, results) => {
+
+            // Check if there were any errors
+            if (err) return res.status(500).send('Internal server error');
+
+            // Send back the number of rows affected
+            return res.send(results.affectedRows.toString());
+
+        }
+    );
+
+});
+
 /*
     Middleware that authenticates requests
     Extracts the token from the cookie
