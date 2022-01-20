@@ -24,6 +24,21 @@ class AuthService {
         }
     }
 
+    async logout() {
+        try {
+            await axios.post(
+                '/admin/logout',
+                {
+                    withCredentials: true
+                }
+            );
+
+            return;
+        } catch (error) {
+            throw error.response.data;
+        }
+    }
+
 }
 
 export default new AuthService();

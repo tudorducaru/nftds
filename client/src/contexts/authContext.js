@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 
 // Create a new context
