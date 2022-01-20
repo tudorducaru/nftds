@@ -8,6 +8,8 @@ import * as yup from 'yup';
 import AuthService from '../../services/authService';
 import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
+import './authentication.css';
+import logo from '../../logo_NFTDS.png';
 
 const Authentication = () => {
 
@@ -25,8 +27,8 @@ const Authentication = () => {
     // Redirect to admin dashboard if user is logged in
     return authContext.user ? <Navigate to='/admin' replace={true} />
         : (
-            <div>
-                <h1>Authenticate</h1>
+            <div className='auth-container'>
+                <img src={logo} />
                 <Formik
                     initialValues={{
                         username: '',
@@ -58,7 +60,7 @@ const Authentication = () => {
 
                             { serverError && <Alert variant='danger'>{serverError}</Alert> }
 
-                            <Form.Group>
+                            <Form.Group className='form-group'>
                                 <Form.Label>Username</Form.Label>
                                 <Field 
                                     type='text' 
@@ -70,7 +72,7 @@ const Authentication = () => {
                                     {errors.username}
                                 </Form.Control.Feedback>
                             </Form.Group>
-                            <Form.Group>
+                            <Form.Group className='form-group'>
                                 <Form.Label>Password</Form.Label>
                                 <Field 
                                     type='password' 
@@ -82,7 +84,7 @@ const Authentication = () => {
                                 </Form.Control.Feedback>
                             </Form.Group>
                             <Button variant="primary" type="submit" disabled={isSubmitting}>
-                                Submit
+                                Log In
                             </Button>
                         </Form>
                     )}
