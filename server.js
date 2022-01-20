@@ -18,6 +18,22 @@ app.use(cookieParser());
 // Parse body of requests
 app.use(express.json());
 
+// Set up csrf protection
+const csurf = require('csurf');
+app.use(csurf({ cookie: {
+    httpOnly: true,
+    secure: true
+}}));
+
+// Custom CSRF error handler
+app.use((err, req, res, next) => {
+    if (err.code !== 'EBADCSRFTOKEN') return next(err);
+
+    res.status(403);
+    res.send('Missing CSRF token');
+});
+
+
 // Admin login route
 app.post('/admin/login', (req, res, next) => {
     
@@ -192,6 +208,18 @@ app.put('/admin/projects/:projectID', (req, res, next) => {
 
         }    
     )
+
+});
+
+// Handle all other get requests
+app.get('*', (req, res, next) => {
+
+    /*
+     Set the CSRF double submit cookie
+     Use the name of the cookie that axios will use as a value for the CSRF token
+    */
+    res.cookie('XSRF-TOKEN', req.csrfToken(), { secure: true });
+    return res.send();
 
 });
 

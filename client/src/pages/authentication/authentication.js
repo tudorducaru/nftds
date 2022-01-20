@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/authContext';
 import { Navigate } from 'react-router-dom';
 import { Formik, Field } from 'formik';
@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import * as yup from 'yup';
 import AuthService from '../../services/authService';
 import Alert from 'react-bootstrap/Alert';
+import axios from 'axios';
 
 const Authentication = () => {
 
@@ -15,6 +16,11 @@ const Authentication = () => {
 
     // Error message sent from the server
     const [serverError, setServerError] = useState();
+
+    // Make request to random server route to get csrf cookie
+    useEffect(() => {
+        axios.get('hatz');
+    }, []);
 
     // Redirect to admin dashboard if user is logged in
     return authContext.user ? <Navigate to='/admin' replace={true} />
