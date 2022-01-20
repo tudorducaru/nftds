@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import Cookies from 'js-cookie';
 
 // Create a new context
 export const AuthContext = React.createContext();
@@ -6,10 +7,16 @@ export const AuthContext = React.createContext();
 export const AuthProvider = props => {
 
     // Keep the user in the provider's state
-    const [user, setUser] = useState(false);
+    const [user, setUser] = useState(Cookies.get('ath'));
+
+    // Store that the user is logged in
+    const loginUser = () => setUser(true);
+
+    // Store that the user is logged out
+    const logoutUser = () => setUser(false);
 
     return (
-        <AuthContext.Provider value={user}>
+        <AuthContext.Provider value={{ user, loginUser, logoutUser }}>
             { props.children }
         </AuthContext.Provider>
     );

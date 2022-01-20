@@ -1,18 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/authContext';
 import { Navigate } from 'react-router-dom';
 import { Formik, Field } from 'formik';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import * as yup from 'yup';
+import AuthService from '../../services/authService';
+import Alert from 'react-bootstrap/Alert';
 
 const Authentication = () => {
 
     // Get the user from AuthContext
-    const user = useContext(AuthContext);
+    const authContext = useContext(AuthContext);
+
+    // Error message sent from the server
+    const [serverError, setServerError] = useState();
 
     // Redirect to admin dashboard if user is logged in
-    return user ? <Navigate to='/admin' replace={true} />
+    return authContext.user ? <Navigate to='/admin' replace={true} />
         : (
             <div>
                 <h1>Authenticate</h1>
@@ -28,8 +33,14 @@ const Authentication = () => {
                     validateOnChange={false}
                     validateOnBlur={false}
                     onSubmit={(values, { setSubmitting }) => {
-                        console.log(values);
-                        setSubmitting(false);
+                        
+                        AuthService.login(values.username, values.password)
+                            .then(() => authContext.loginUser())
+                            .catch(errorMessage => {
+                                setSubmitting(false);
+                                setServerError(errorMessage);
+                            });
+
                     }}
                 >
                     {({ 
@@ -38,6 +49,9 @@ const Authentication = () => {
                         errors 
                     }) => (
                         <Form onSubmit={handleSubmit}>
+
+                            { serverError && <Alert variant='danger'>{serverError}</Alert> }
+
                             <Form.Group>
                                 <Form.Label>Username</Form.Label>
                                 <Field 
