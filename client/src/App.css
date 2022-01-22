@@ -51,7 +51,7 @@ p, h1 {
 }
 
 .auth-container .form-control,
-.new-project-container .form-control {
+.project-form-container .form-control {
   background-color: #1B1727;
   border: none;
   border-radius: 100px;
@@ -61,7 +61,7 @@ p, h1 {
 }
 
 .auth-container .form-control:focus,
-.new-project-container .form-control:focus {
+.project-form-container .form-control:focus {
   background-color: #1B1727;
   box-shadow: 0 0 0 2px rgba(110, 110, 238, 0.5);
   border: none;
@@ -94,4 +94,36 @@ p, h1 {
 .form-check-input:focus {
     border: none !important;
     box-shadow: none !important;
+}
+
+.form-control.is-invalid {
+  background-image: none;
+}
+
+.invalid-feedback {
+  margin-left: 12px;
+}
+
+.auth-container button,
+.project-form-container button {
+  margin: 0 auto;
+  display: block;
+  border-radius: 100px;
+  background-color: #6E6EEE !important;
+  width: 200px;
+  border: none;
+}
+
+.auth-container button:hover,
+.project-form-container button:hover {
+  background-color: #6E6EEE;
+}
+
+.auth-container button:focus,
+.auth-container button:active,
+.project-form-container button:focus,
+.project-form-container button:active {
+  border: none;
+  box-shadow: none !important;
+  background-color: #6E6EEE;
 }

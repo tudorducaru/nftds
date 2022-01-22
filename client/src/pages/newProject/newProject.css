@@ -1,15 +1,15 @@
-.new-project-container {
+.project-form-container {
     margin: 64px auto;
     width: 90%;
 }
 
-.new-project-container h1 {
+.project-form-container h1 {
     margin-left: 12px;
 }
 
 /* sm breakpoint */
 @media only screen and (min-width: 576px) {
-    .new-project-container {
+    .project-form-container {
         width: 500px;
     }
 }
