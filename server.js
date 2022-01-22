@@ -90,6 +90,7 @@ app.post('/admin/projects', (req, res, next) => {
     // Check that all fields are in the request body
     if (
         !req.body ||
+        !req.body.name ||
         !req.body.invite_url ||
         req.body.fakemeter === 'undefined' ||
         !req.body.mint_date || 
@@ -102,6 +103,7 @@ app.post('/admin/projects', (req, res, next) => {
 
     // Get project information
     const id = uuid.v1();
+    const name = req.body.name;
     const invite_url = req.body.invite_url;
     const fakemeter = req.body.fakemeter;
     const mint_date = req.body.mint_date;
@@ -111,8 +113,8 @@ app.post('/admin/projects', (req, res, next) => {
 
     // Insert the project into the database
     dbConnection.query(
-        'INSERT INTO projects VALUES (?, ?, ?, ?, ?, ?, ?)',
-        [id, invite_url, fakemeter, mint_date, mint_amount, website_link, twitter_link],
+        'INSERT INTO projects VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        [id, name, invite_url, fakemeter, mint_date, mint_amount, website_link, twitter_link],
         (err, results) => {
 
             // Check if there were any errors
@@ -121,6 +123,7 @@ app.post('/admin/projects', (req, res, next) => {
             // Send back the project object
             return res.status(201).send({
                 id,
+                name,
                 invite_url,
                 fakemeter,
                 mint_date,
@@ -175,6 +178,7 @@ app.put('/admin/projects/:projectID', (req, res, next) => {
     // Check that all fields are in the request body
     if (
         !req.body ||
+        !req.body.name ||
         !req.body.invite_url ||
         req.body.fakemeter === 'undefined' ||
         !req.body.mint_date || 
@@ -187,6 +191,7 @@ app.put('/admin/projects/:projectID', (req, res, next) => {
 
     // Get project information
     const id = req.params.projectID;
+    const name = req.body.name;
     const invite_url = req.body.invite_url;
     const fakemeter = req.body.fakemeter;
     const mint_date = req.body.mint_date;
@@ -196,8 +201,8 @@ app.put('/admin/projects/:projectID', (req, res, next) => {
 
     // Update the row in the database
     dbConnection.query(
-        'UPDATE projects SET invite_url = ?, fakemeter = ?, mint_date = ?, mint_amount = ?, website_link = ?, twitter_link = ? WHERE id = ?',
-        [invite_url, fakemeter, mint_date, mint_amount, website_link, twitter_link, id],
+        'UPDATE projects SET name = ?, invite_url = ?, fakemeter = ?, mint_date = ?, mint_amount = ?, website_link = ?, twitter_link = ? WHERE id = ?',
+        [name, invite_url, fakemeter, mint_date, mint_amount, website_link, twitter_link, id],
         (err, results) => {
 
             // Check if there were any errors
