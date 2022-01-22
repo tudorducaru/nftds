@@ -3,6 +3,10 @@
     width: 90%;
 }
 
+.auth-container form {
+    position: relative;
+}
+
 .auth-container img {
     width: 200px;
     display: block;
@@ -56,6 +60,15 @@
     border: none;
     box-shadow: none !important;
     background-color: #6E6EEE;
+}
+
+#auth-spinner {
+    height: 32px;
+    width: 32px;
+    position: absolute;
+    left: calc(50% - 16px);
+    top: calc(50% - 16px);
+    color: #6E6EEE;
 }
 
 /* sm breakpoint */

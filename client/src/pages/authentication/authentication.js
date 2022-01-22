@@ -10,6 +10,7 @@ import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
 import './authentication.css';
 import logo from '../../logo_NFTDS.png';
+import Spinner from 'react-bootstrap/Spinner';
 
 const Authentication = () => {
 
@@ -59,6 +60,8 @@ const Authentication = () => {
                         <Form onSubmit={handleSubmit}>
 
                             { serverError && <Alert variant='danger'>{serverError}</Alert> }
+
+                            { isSubmitting && <Spinner id='auth-spinner' animation='border' /> }
 
                             <Form.Group className='form-group'>
                                 <Form.Label>Username</Form.Label>
