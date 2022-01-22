@@ -40,3 +40,58 @@ body {
     transform: rotate(360deg);
   }
 }
+
+p, h1 {
+  color: #ebebeb;
+}
+
+.form-label, .form-check-label {
+  color: #F7911D;
+  margin-left: 12px;
+}
+
+.auth-container .form-control,
+.new-project-container .form-control {
+  background-color: #1B1727;
+  border: none;
+  border-radius: 100px;
+  padding-left: 16px;
+  height: 48px;
+  color: #ebebeb;
+}
+
+.auth-container .form-control:focus,
+.new-project-container .form-control:focus {
+  background-color: #1B1727;
+  box-shadow: 0 0 0 2px rgba(110, 110, 238, 0.5);
+  border: none;
+  color: #ebebeb;
+}
+
+.form-group {
+    margin-bottom: 32px !important;
+}
+
+.form-check {
+    margin-bottom: 0 !important;
+    margin-left: 12px;
+    height: 32px;
+    display: flex !important;
+    align-items: center;
+}
+
+.form-check-input {
+    align-self: baseline;
+    height: 24px !important;
+    width: 24px !important;
+}
+
+.form-check-input:checked {
+    background-color: #6E6EEE !important;
+    border-color: #6E6EEE !important;
+}
+
+.form-check-input:focus {
+    border: none !important;
+    box-shadow: none !important;
+}
