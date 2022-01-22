@@ -45,6 +45,10 @@ p, h1 {
   color: #ebebeb;
 }
 
+form {
+  position: relative;
+}
+
 .form-label, .form-check-label {
   color: #F7911D;
   margin-left: 12px;
@@ -97,7 +101,7 @@ p, h1 {
 }
 
 .form-control.is-invalid {
-  background-image: none;
+  background-image: none !important;
 }
 
 .invalid-feedback {

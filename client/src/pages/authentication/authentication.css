@@ -3,10 +3,6 @@
     width: 90%;
 }
 
-.auth-container form {
-    position: relative;
-}
-
 .auth-container img {
     width: 200px;
     display: block;

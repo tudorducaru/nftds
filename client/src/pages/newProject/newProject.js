@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './newProject.css';
 import { Formik, Field } from 'formik';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import * as yup from 'yup';
+import Spinner from 'react-bootstrap/Spinner';
+import DataService from '../../services/dataService';
+import { useNavigate } from 'react-router-dom';
+import Alert from 'react-bootstrap/Alert';
 
 const NewProject = () => {
+
+    // Error message from the server
+    const [serverError, setServerError] = useState();
+
+    let navigate = useNavigate();
+
     return (
         <div className='project-form-container'>
             <h1>Add New Project</h1>
 
             <Formik
                 initialValues={{
-                    project_name: '',
+                    name: '',
                     invite_url: '',
                     fakemeter: false,
                     mint_date: '',
@@ -21,7 +31,7 @@ const NewProject = () => {
                     twitter_link: ''
                 }}
                 validationSchema={yup.object({
-                    project_name: yup.string().required('Please enter project name'),
+                    name: yup.string().required('Please enter project name'),
                     invite_url: yup.string().required('Please enter invite URL'),
                     mint_date: yup.string().required('Please enter mint date'),
                     mint_amount: yup.number()
@@ -33,7 +43,20 @@ const NewProject = () => {
                 validateOnBlur={false}
                 validateOnChange={false}
                 onSubmit={(values, { setSubmitting }) => {
-                    console.log(values);
+                    
+                    DataService.addProject(values)
+                        .then(() => {
+
+                            // Go back to admin dashboard
+                            navigate('/admin');
+                        })
+                        .catch(errorMessage => {
+                            setSubmitting(false);
+
+                            // Display the error message
+                            setServerError(errorMessage);
+                        }); 
+
                 }}
             >
                 {({
@@ -42,17 +65,22 @@ const NewProject = () => {
                     errors
                 }) => (
                     <Form onSubmit={handleSubmit}>
+
+                        { serverError && <Alert variant='danger'>{serverError}</Alert> }
+
+                        { isSubmitting && <Spinner id='auth-spinner' animation='border' /> }
+
                         <Form.Group className='form-group'>
                             <Form.Label>Project Name</Form.Label>
                             <Field
-                                name='project_name'
+                                name='name'
                                 type='text'
                                 placeholder='Enter project name...'
-                                isInvalid={!!errors.project_name}
+                                isInvalid={!!errors.name}
                                 as={Form.Control}
                             />
                             <Form.Control.Feedback type='invalid'>
-                                {errors.project_name}
+                                {errors.name}
                             </Form.Control.Feedback>
                         </Form.Group>
 
