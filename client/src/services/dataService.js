@@ -2,6 +2,25 @@ import axios from 'axios';
 
 class DataService {
 
+    async getProjects() {
+        try {
+
+            const response = await axios.get(
+                '/projects',
+                { 
+                    withCredentials: true 
+                }
+            );
+
+            return response.data;
+            
+        } catch (err) {
+
+            // Unsuccessful request
+            throw err.response.data;
+        }
+    }
+
     async addProject(project_info) {
         try {
 

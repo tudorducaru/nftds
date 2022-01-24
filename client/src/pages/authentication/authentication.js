@@ -61,7 +61,7 @@ const Authentication = () => {
 
                             { serverError && <Alert variant='danger'>{serverError}</Alert> }
 
-                            { isSubmitting && <Spinner id='auth-spinner' animation='border' /> }
+                            { isSubmitting && <Spinner className='custom-spinner' animation='border' /> }
 
                             <Form.Group className='form-group'>
                                 <Form.Label>Username</Form.Label>

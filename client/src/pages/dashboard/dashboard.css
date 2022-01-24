@@ -1,0 +1,43 @@
+#admin-dashboard-container {
+    margin: 64px auto;
+    width: 90%;
+}
+
+#admin-dashboard-container h1 {
+    font-size: 32px;
+    margin: 0;
+}
+
+#plus-button-container {
+    display: flex;
+    align-items: center;
+}
+
+.admin-dashboard-header {
+    margin-bottom: 16px;
+}
+
+.admin-project-container {
+    height: 56px;
+    cursor: pointer;
+}
+
+.admin-project-container .col {
+    display: flex;
+    align-items: center;
+}
+
+.admin-project-container:nth-child(2n) {
+    background-color: #17151F;
+}
+
+.admin-project-container:nth-child(2n+1) {
+    background-color: #1B1727;
+}
+
+/* sm breakpoint */
+@media only screen and (min-width: 576px) {
+    #admin-dashboard-container {
+        width: 500px;
+    }
+}

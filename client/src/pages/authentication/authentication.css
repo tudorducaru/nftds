@@ -9,15 +9,6 @@
     margin: 32px auto;
 }
 
-#auth-spinner {
-    height: 32px;
-    width: 32px;
-    position: absolute;
-    left: calc(50% - 16px);
-    top: calc(50% - 16px);
-    color: #6E6EEE;
-}
-
 /* sm breakpoint */
 @media only screen and (min-width: 576px) {
     .auth-container {
