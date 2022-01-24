@@ -21,7 +21,7 @@ const Dashboard = () => {
     // Error message from the server
     const [serverError, setServerError] = useState();
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(!projects);
 
     const navigate = useNavigate();
 
@@ -49,7 +49,7 @@ const Dashboard = () => {
     const handlePlusClick = () => {
         navigate('/admin/newProject');
     }
-    console.log(projects);
+
     return (
         <div>
             <button onClick={handleLogout}>
@@ -76,7 +76,9 @@ const Dashboard = () => {
                 
                 {
                     projects.map(project => 
-                        <Row className='admin-project-container' key={ project.id }>
+                        <Row className='admin-project-container' key={ project.id }
+                            onClick={() => navigate(`/admin/updateProject/${ project.id }`)}
+                        >
                             <Col>
                                 <p>
                                     { project.name }
