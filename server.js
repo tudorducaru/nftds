@@ -102,7 +102,15 @@ app.post('/admin/projects', (req, res, next) => {
     }
 
     // Get project information
-    const id = uuid.v1();
+    let id = uuid.v1();
+
+    // Need to switch 1st and 3rd field to be able to order by creation time
+    const id_components = id.split('-');
+    id = `${id_components[2]}-${id_components[1]}-${id_components[0]}`;
+    for(let i = 3; i < id_components.length; i++) {
+        id += '-' + id_components[i];
+    }
+
     const name = req.body.name;
     const invite_url = req.body.invite_url;
     const fakemeter = req.body.fakemeter;
