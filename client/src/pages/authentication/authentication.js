@@ -86,7 +86,7 @@ const Authentication = () => {
                                     {errors.password}
                                 </Form.Control.Feedback>
                             </Form.Group>
-                            <Button variant="primary" type="submit" disabled={isSubmitting}>
+                            <Button className='custom-button' variant="primary" type="submit" disabled={isSubmitting}>
                                 Log In
                             </Button>
                         </Form>

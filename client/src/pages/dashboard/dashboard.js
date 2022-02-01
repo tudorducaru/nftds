@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 import { ProjectsContext } from '../../contexts/projectsContext';
 import DataService from '../../services/dataService';
 import Spinner from 'react-bootstrap/Spinner';
+import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
 
 
 const Dashboard = () => {
@@ -52,14 +54,21 @@ const Dashboard = () => {
 
     return (
         <div>
-            <button onClick={handleLogout}>
-                Log out
-            </button>
+            <Navbar id='admin-navbar'>
+                <Container>
+                    <Navbar.Collapse className='justify-content-end'>
+                        <Button className='custom-button' onClick={handleLogout}>
+                            Log out
+                        </Button>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+
             <Container id='admin-dashboard-container'>
 
-                { serverError && 
+                {serverError &&
                     <Row>
-                        <Alert variant='danger'>{ serverError }</Alert>
+                        <Alert variant='danger'>{serverError}</Alert>
                     </Row>
                 }
 
@@ -72,25 +81,25 @@ const Dashboard = () => {
                     </Col>
                 </Row>
 
-                { loading && <Spinner className='custom-spinner' animation='border'/> }
-                
+                {loading && <Spinner className='custom-spinner' animation='border' />}
+
                 {
-                    projects.map(project => 
-                        <Row className='admin-project-container' key={ project.id }
-                            onClick={() => navigate(`/admin/updateProject/${ project.id }`)}
+                    projects.map(project =>
+                        <Row className='admin-project-container' key={project.id}
+                            onClick={() => navigate(`/admin/updateProject/${project.id}`)}
                         >
                             <Col>
                                 <p>
-                                    { project.name }
+                                    {project.name}
                                 </p>
                             </Col>
                         </Row>
                     )
                 }
-                
+
 
             </Container>
-            
+
         </div>
     )
 };

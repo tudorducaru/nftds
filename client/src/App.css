@@ -109,28 +109,24 @@ form {
   margin-left: 12px;
 }
 
-.auth-container button,
-.project-form-container button {
+.custom-button {
   margin: 0 auto;
-  display: block;
-  border-radius: 100px;
+  display: block !important;
+  border-radius: 100px !important;
   background-color: #6E6EEE !important;
   width: 200px;
-  border: none;
+  border: none !important;
 }
 
-.auth-container button:hover,
-.project-form-container button:hover {
-  background-color: #6E6EEE;
+.custom-button:hover {
+  background-color: #6E6EEE !important;
 }
 
-.auth-container button:focus,
-.auth-container button:active,
-.project-form-container button:focus,
-.project-form-container button:active {
-  border: none;
+.custom-button:focus,
+.custom-button:active {
+  border: none !important;
   box-shadow: none !important;
-  background-color: #6E6EEE;
+  background-color: #6E6EEE !important;
 }
 
 .custom-spinner {
@@ -140,4 +136,15 @@ form {
   left: calc(50% - 16px);
   top: calc(50% - 16px);
   color: #6E6EEE;
+}
+
+#admin-navbar .container {
+  padding-top: 8px;
+  max-width: 100%;
+  margin: 0;
+}
+
+#admin-navbar button {
+  margin: 0;
+  width: 100px;
 }
