@@ -160,6 +160,26 @@ app.get('/projects', (req, res, next) => {
 
 });
 
+// Get individual project route
+app.get('/projects/:projectID', (req, res, next) => {
+
+    // Query the database
+    dbConnection.query(
+        'SELECT * FROM projects WHERE id = ?', 
+        [req.params.projectID],
+        (err, results) => {
+
+            // Check if there were any errors
+            if (err) return res.status(500).send('Internal server error');
+
+            // Send back the project
+            return res.send(results[0]);
+
+        }
+    );
+
+});
+
 // Delete project route
 app.delete('/admin/projects/:projectID', (req, res, next) => {
 
