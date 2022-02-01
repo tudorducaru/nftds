@@ -21,26 +21,48 @@ class DataService {
         }
     }
 
-    async addProject(project_info) {
+    async addProject(projectInfo) {
         try {
 
-            const newProject = await axios.post(
+            const response = await axios.post(
                 '/admin/projects',
                 {
-                    ...project_info
+                    ...projectInfo
                 },
                 {
                     withCredentials: true
                 }
             );
 
-            return newProject;
+            return response.data;
 
         } catch (err) {
 
             // Failure to insert project
             throw err.response.data;
         }
+    }
+
+    async getProject(projectID) {
+
+        try {
+
+            const response = await axios.get(
+                `/projects/${projectID}`,
+                {
+                    withCredentials: true
+                }
+            );
+
+            return response.data;
+
+        } catch (err) {
+
+            // Failure to retrieve project
+            throw err.response.data;
+
+        }
+
     }
 
 }
