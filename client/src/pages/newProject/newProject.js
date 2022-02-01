@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './newProject.css';
 import { Formik, Field } from 'formik';
 import Form from 'react-bootstrap/Form';
@@ -8,8 +8,11 @@ import Spinner from 'react-bootstrap/Spinner';
 import DataService from '../../services/dataService';
 import { useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
+import { ProjectsContext } from '../../contexts/projectsContext';
 
 const NewProject = () => {
+
+    const { insertProject } = useContext(ProjectsContext);
 
     // Error message from the server
     const [serverError, setServerError] = useState();
@@ -45,7 +48,10 @@ const NewProject = () => {
                 onSubmit={(values, { setSubmitting }) => {
                     
                     DataService.addProject(values)
-                        .then(() => {
+                        .then(project => {
+
+                            // Insert the project into global state
+                            insertProject(project);
 
                             // Go back to admin dashboard
                             navigate('/admin');
@@ -68,7 +74,7 @@ const NewProject = () => {
 
                         { serverError && <Alert variant='danger'>{serverError}</Alert> }
 
-                        { isSubmitting && <Spinner id='auth-spinner' animation='border' /> }
+                        { isSubmitting && <Spinner className='custom-spinner' animation='border' /> }
 
                         <Form.Group className='form-group'>
                             <Form.Label>Project Name</Form.Label>
