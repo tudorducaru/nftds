@@ -26,9 +26,7 @@ class DataService {
 
             const response = await axios.post(
                 '/admin/projects',
-                {
-                    ...projectInfo
-                },
+                projectInfo,
                 {
                     withCredentials: true
                 }
@@ -59,6 +57,29 @@ class DataService {
         } catch (err) {
 
             // Failure to retrieve project
+            throw err.response.data;
+
+        }
+
+    }
+
+    async updateProject(projectID, projectInfo) {
+
+        try {
+
+            const response = await axios.put(
+                `/admin/projects/${projectID}`,
+                projectInfo,
+                {
+                    withCredentials: true
+                }
+            );
+
+            return;
+
+        } catch (err) {
+
+            // Failure to update project
             throw err.response.data;
 
         }

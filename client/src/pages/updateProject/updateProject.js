@@ -22,6 +22,8 @@ const UpdateProject = () => {
     // Keep current project in local state
     const [project, setProject] = useState();
 
+    let navigate = useNavigate();
+
     useEffect(() => {
 
         DataService.getProject(projectID)
@@ -63,6 +65,18 @@ const UpdateProject = () => {
                 enableReinitialize
                 onSubmit={(values, { setSubmitting }) => {
                     
+                    DataService.updateProject(projectID, values)
+                        .then(() => {
+
+                            // Go back to admin dashboard
+                            navigate('/admin', { replace: true });
+                        })
+                        .catch(errorMessage => {
+                            setSubmitting(false);
+
+                            // Display the error message
+                            setServerError(errorMessage);
+                        });
 
                 }}
             >
