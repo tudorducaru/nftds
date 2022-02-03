@@ -31,7 +31,7 @@ const UpdateProject = () => {
     const [showModal, setShowModal] = useState(false);
 
     // Spin modal spinner
-    const [modalSpinner, setModalSpinner] = useState(true);
+    const [modalSpinner, setModalSpinner] = useState(false);
 
     let navigate = useNavigate();
 
@@ -48,8 +48,24 @@ const UpdateProject = () => {
     }, []);
 
     const handleDeleteClick = () => setShowModal(true);
-
     const handleModalClose = () => setShowModal(false);
+
+    const handleDeleteProject = () => {
+        setModalSpinner(true);
+
+        DataService.deleteProject(projectID)
+            .then(() => {
+
+                // Go back to admin dashboard
+                navigate('/admin', { replace: true });
+            })
+            .catch(errorMessage => {
+                setModalSpinner(false);
+
+                // Display the error message
+                setServerError(errorMessage);
+            });
+    };
 
     return (
         <Container className='project-form-container'>
@@ -64,7 +80,7 @@ const UpdateProject = () => {
                     <Button className='custom-button custom-close-button' onClick={handleModalClose}>
                         Close
                     </Button>
-                    <Button className='custom-button custom-confirm-button' variant='primary'>
+                    <Button className='custom-button custom-confirm-button' variant='primary' onClick={handleDeleteProject}>
                         Confirm
                     </Button>
                 </Modal.Footer>

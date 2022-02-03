@@ -86,6 +86,28 @@ class DataService {
 
     }
 
+    async deleteProject(projectID) {
+
+        try {
+
+            const response = axios.delete(
+                `/admin/projects/${projectID}`,
+                {
+                    withCredentials: true
+                }
+            );
+
+            return;
+
+        } catch (err) {
+
+            // Failure to delete project
+            throw err.response.data;
+
+        }
+
+    }
+
 }
 
 export default new DataService();
