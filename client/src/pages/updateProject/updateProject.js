@@ -11,6 +11,7 @@ import Alert from 'react-bootstrap/Alert';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Modal from 'react-bootstrap/Modal';
 import { MdDeleteOutline } from 'react-icons/md';
 
 import { useParams } from 'react-router-dom';
@@ -26,6 +27,12 @@ const UpdateProject = () => {
     // Keep current project in local state
     const [project, setProject] = useState();
 
+    // Whether or not to show delete alert modal
+    const [showModal, setShowModal] = useState(false);
+
+    // Spin modal spinner
+    const [modalSpinner, setModalSpinner] = useState(true);
+
     let navigate = useNavigate();
 
     useEffect(() => {
@@ -40,12 +47,28 @@ const UpdateProject = () => {
 
     }, []);
 
-    const handleDeleteClick = () => {
-        alert('delt');
-    }
+    const handleDeleteClick = () => setShowModal(true);
+
+    const handleModalClose = () => setShowModal(false);
 
     return (
         <Container className='project-form-container'>
+
+            <Modal show={showModal} onHide={handleModalClose}>
+                <Modal.Header closeButton closeVariant='white'/>
+                <Modal.Body>
+                    { modalSpinner && <Spinner className='custom-spinner' animation='border' /> }
+                    <p>Are you sure you want to delete this project?</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className='custom-button custom-close-button' onClick={handleModalClose}>
+                        Close
+                    </Button>
+                    <Button className='custom-button custom-confirm-button' variant='primary'>
+                        Confirm
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
             <Row>
                 <Col>
@@ -56,8 +79,6 @@ const UpdateProject = () => {
                 </Col>
             </Row>
 
-
-            
 
             <Formik
                 initialValues={{

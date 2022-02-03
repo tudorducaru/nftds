@@ -1,3 +1,34 @@
 .delete-icon {
     cursor: pointer;
 }
+
+.modal-content {
+    background-color: #201B2F !important;
+    border-radius: 8px !important;
+}
+
+.modal-header {
+    border-bottom: none !important;
+}
+
+.modal-header .close {
+    color: #ebebeb;
+}
+
+.modal-footer {
+    border-top: none !important;
+}
+
+.custom-close-button {
+    width: 100px;
+    background-color: red !important;
+}
+
+.custom-close-button:hover {
+    background-color: red !important;
+}
+
+.custom-confirm-button {
+    width: 125px;
+
+}
