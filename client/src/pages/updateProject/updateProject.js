@@ -8,6 +8,10 @@ import Spinner from 'react-bootstrap/Spinner';
 import DataService from '../../services/dataService';
 import { useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { MdDeleteOutline } from 'react-icons/md';
 
 import { useParams } from 'react-router-dom';
 
@@ -36,9 +40,24 @@ const UpdateProject = () => {
 
     }, []);
 
+    const handleDeleteClick = () => {
+        alert('delt');
+    }
+
     return (
-        <div className='project-form-container'>
-            <h1>Update Project</h1>
+        <Container className='project-form-container'>
+
+            <Row>
+                <Col>
+                    <h1>Update Project</h1>
+                </Col>
+                <Col className='col-auto d-flex align-items-center delete-icon' onClick={handleDeleteClick}>
+                    <MdDeleteOutline size={32} color='#ebebeb' />
+                </Col>
+            </Row>
+
+
+            
 
             <Formik
                 initialValues={{
@@ -192,7 +211,7 @@ const UpdateProject = () => {
                 )}
 
             </Formik>
-        </div>
+        </Container>
     );
 };
 
