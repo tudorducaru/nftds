@@ -86,6 +86,33 @@ app.post('/admin/logout', (req, res, next) => {
 
 });
 
+/*
+    Verify user router
+    Returns a boolean that specifies whether the user is logged in or not
+*/
+app.get('/admin/verifyUser', (req, res, next) => {
+
+    /*
+        If a valid JWT is sent in a cookie, the user is logged it
+        Otherwise, no user is logged in
+    */
+    const token = req.cookies.token;
+
+    // No token sent
+    if (!token) return res.send(false);
+
+    // Verify the validity of the token
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+
+        if (err) return res.status(403).send('JWT token invalid');
+
+        // Valid token, user is logged in
+        return res.send(true);
+
+    });
+
+});
+
 // Insert new project route
 app.post('/admin/projects', (req, res, next) => {
 
