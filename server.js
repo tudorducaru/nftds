@@ -66,7 +66,7 @@ app.post('/admin/login', (req, res, next) => {
                 const token = jwt.sign({ id: results[0].id }, process.env.ACCESS_TOKEN_SECRET);
 
                 // Put the jwt in an httpOnly cookie
-                res.cookie('jwt', token, { httpOnly: true, secure: true });
+                res.cookie('jwt', token, { httpOnly: true, secure: true, maxAge: 1000 * 3600 * 24 * 365 });
                 return res.send();
 
             })
