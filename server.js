@@ -317,7 +317,7 @@ app.get('/admin/csrfToken', (req, res, next) => {
 app.get('*', (req, res, next) => {
 
     // Serve the react app
-    res.sendFile(path.join(__dirname, './client/build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 
 });
 
