@@ -35,6 +35,28 @@ app.use((err, req, res, next) => {
     res.send('Missing CSRF token');
 });
 
+/*
+    Middleware that authenticates requests
+    Extracts the token from the cookie
+    and verifies its validity
+*/
+const authenticateReq = (req, res, next) => {
+
+    // Retrieve jwt from cookie
+    const token = req.cookies.jwt;
+
+    if (!token) return res.status(403).send('JWT token not provided');
+
+    // Verify the token
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+
+        if (err) return res.status(403).send('JWT token invalid');
+
+        next();
+
+    });
+};
+
 
 // Admin login route
 app.post('/admin/login', (req, res, next) => {
@@ -111,6 +133,24 @@ app.get('/admin/verifyUser', (req, res, next) => {
 
 });
 
+// Get projects route
+app.get('/projects', (req, res, next) => {
+
+    // Query the database
+    dbConnection.query('SELECT * FROM projects', (err, results) => {
+
+        // Check if there were any errors
+        if (err) return res.status(500).send('Internal server error');
+
+        return res.send(results);
+
+    });
+
+});
+
+// Use middleware to authenticate request for any admin operation
+app.use('/admin/projects', authenticateReq);
+
 // Insert new project route
 app.post('/admin/projects', (req, res, next) => {
 
@@ -172,23 +212,8 @@ app.post('/admin/projects', (req, res, next) => {
 
 });
 
-// Get projects route
-app.get('/projects', (req, res, next) => {
-
-    // Query the database
-    dbConnection.query('SELECT * FROM projects', (err, results) => {
-
-        // Check if there were any errors
-        if (err) return res.status(500).send('Internal server error');
-
-        return res.send(results);
-
-    });
-
-});
-
 // Get individual project route
-app.get('/projects/:projectID', (req, res, next) => {
+app.get('/admin/projects/:projectID', (req, res, next) => {
 
     // Query the database
     dbConnection.query(
@@ -289,28 +314,6 @@ app.get('*', (req, res, next) => {
     return res.send();
 
 });
-
-/*
-    Middleware that authenticates requests
-    Extracts the token from the cookie
-    and verifies its validity
-*/
-const authenticateReq = (req, res, next) => {
-
-    // Retrieve jwt from cookie
-    const token = req.cookies.jwt;
-
-    if (!token) return res.status(403).send('JWT token not provided');
-
-    // Verify the token
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-
-        if (err) return res.status(403).send('JWT token invalid');
-
-        next();
-
-    });
-};
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

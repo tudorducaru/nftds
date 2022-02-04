@@ -80,7 +80,7 @@ class DataService {
         try {
 
             const response = await axios.get(
-                `/projects/${projectID}`,
+                `/admin/projects/${projectID}`,
                 {
                     withCredentials: true
                 }
@@ -124,7 +124,7 @@ class DataService {
 
         try {
 
-            const response = axios.delete(
+            const response = await axios.delete(
                 `/admin/projects/${projectID}`,
                 {
                     withCredentials: true

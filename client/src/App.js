@@ -54,8 +54,8 @@ function App() {
       <Route path='/' element={<Homepage />} />
       <Route path='/admin/authentication' element={<Authentication />} />
       <Route path='/admin' element={<RequireAuth><Dashboard /></RequireAuth>} />
-      <Route path='/admin/newProject' element={<NewProject />} />
-      <Route path='/admin/updateProject/:projectID' element={<UpdateProject />} />
+      <Route path='/admin/newProject' element={<RequireAuth><NewProject /></RequireAuth>} />
+      <Route path='/admin/updateProject/:projectID' element={<RequireAuth><UpdateProject /></RequireAuth>} />
     </Routes>
   );
 }

@@ -60,6 +60,7 @@ const UpdateProject = () => {
                 navigate('/admin', { replace: true });
             })
             .catch(errorMessage => {
+                setShowModal(false);
                 setModalSpinner(false);
 
                 // Display the error message
