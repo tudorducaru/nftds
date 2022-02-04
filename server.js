@@ -20,10 +20,12 @@ app.use(express.json());
 
 // Set up csrf protection
 const csurf = require('csurf');
-app.use(csurf({ cookie: {
-    httpOnly: true,
-    secure: true
-}}));
+app.use(csurf({
+    cookie: {
+        httpOnly: true,
+        secure: true
+    }
+}));
 
 // Custom CSRF error handler
 app.use((err, req, res, next) => {
@@ -36,7 +38,7 @@ app.use((err, req, res, next) => {
 
 // Admin login route
 app.post('/admin/login', (req, res, next) => {
-    
+
     // Check that the request has all the fields required
     if (!req.body || !req.body.username || !req.body.password) return res.status(400).send('Username or password not provided');
 
@@ -93,7 +95,7 @@ app.post('/admin/projects', (req, res, next) => {
         !req.body.name ||
         !req.body.invite_url ||
         req.body.fakemeter === 'undefined' ||
-        !req.body.mint_date || 
+        !req.body.mint_date ||
         !req.body.mint_amount ||
         !req.body.website_link ||
         !req.body.twitter_link
@@ -107,7 +109,7 @@ app.post('/admin/projects', (req, res, next) => {
     // Need to switch 1st and 3rd field to be able to order by creation time
     const id_components = id.split('-');
     id = `${id_components[2]}-${id_components[1]}-${id_components[0]}`;
-    for(let i = 3; i < id_components.length; i++) {
+    for (let i = 3; i < id_components.length; i++) {
         id += '-' + id_components[i];
     }
 
@@ -165,7 +167,7 @@ app.get('/projects/:projectID', (req, res, next) => {
 
     // Query the database
     dbConnection.query(
-        'SELECT * FROM projects WHERE id = ?', 
+        'SELECT * FROM projects WHERE id = ?',
         [req.params.projectID],
         (err, results) => {
 
@@ -209,7 +211,7 @@ app.put('/admin/projects/:projectID', (req, res, next) => {
         !req.body.name ||
         !req.body.invite_url ||
         req.body.fakemeter === 'undefined' ||
-        !req.body.mint_date || 
+        !req.body.mint_date ||
         !req.body.mint_amount ||
         !req.body.website_link ||
         !req.body.twitter_link
@@ -239,19 +241,25 @@ app.put('/admin/projects/:projectID', (req, res, next) => {
             // Send back the number of rows affected
             return res.send(results.affectedRows.toString());
 
-        }    
+        }
     )
 
 });
 
-// Handle all other get requests
-app.get('*', (req, res, next) => {
+// Get CSRF token
+app.get('/admin/csrfToken', (req, res, next) => {
 
     /*
      Set the CSRF double submit cookie
      Use the name of the cookie that axios will use as a value for the CSRF token
     */
     res.cookie('XSRF-TOKEN', req.csrfToken(), { secure: true });
+
+});
+
+// Handle all other get requests
+app.get('*', (req, res, next) => {
+
     return res.send();
 
 });
@@ -265,14 +273,14 @@ const authenticateReq = (req, res, next) => {
 
     // Retrieve jwt from cookie
     const token = req.cookies.jwt;
-    
+
     if (!token) return res.status(403).send('JWT token not provided');
 
     // Verify the token
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
 
         if (err) return res.status(403).send('JWT token invalid');
-        
+
         next();
 
     });
