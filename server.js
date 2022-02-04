@@ -7,10 +7,9 @@ const app = express();
 
 // Serve the static assets from the build folder
 const path = require('path');
-app.use(express.static(path.resolve(__dirname, './client/build')));
+app.use(express.static(path.resolve(__dirname, 'client/build')));
 
 // Configure environment variables
-console.log(`/.env.${process.env.NODE_ENV}`);
 require('dotenv').config();
 
 // Connect to MySQL database
