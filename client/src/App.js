@@ -10,8 +10,20 @@ import NewProject from './pages/newProject/newProject';
 import UpdateProject from './pages/updateProject/updateProject';
 
 import RequireAuth from './components/requireAuth';
+import { useEffect } from 'react';
+
+import DataService from './services/dataService';
 
 function App() {
+
+  useEffect(() => {
+    
+    // Try to get CSRF token from the server
+    DataService.getCsrfToken()
+      .catch(errorMessage => console.log(errorMessage));
+
+  }, []);
+
   return (
 
     // Set up routes

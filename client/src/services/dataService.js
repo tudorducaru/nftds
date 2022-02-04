@@ -2,6 +2,23 @@ import axios from 'axios';
 
 class DataService {
 
+    // Make request that returns a CSRF token
+    async getCsrfToken() {
+        try {
+            
+            const response = await axios.get(
+                '/admin/csrfToken'
+            );
+            return;
+
+        } catch (err) {
+            
+            // Failure to get CSRF token
+            return err.response.data;
+
+        }
+    }
+
     async getProjects() {
         try {
 

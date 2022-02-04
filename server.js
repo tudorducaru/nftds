@@ -254,6 +254,7 @@ app.get('/admin/csrfToken', (req, res, next) => {
      Use the name of the cookie that axios will use as a value for the CSRF token
     */
     res.cookie('XSRF-TOKEN', req.csrfToken(), { secure: true });
+    return res.send();
 
 });
 
