@@ -67,7 +67,6 @@ app.post('/admin/login', (req, res, next) => {
 
                 // Put the jwt in an httpOnly cookie
                 res.cookie('jwt', token, { httpOnly: true, secure: true });
-                res.cookie('ath', 'c3d1cf2574ea4bcd68448ebaa5f75454', { secure: true });
                 return res.send();
 
             })
@@ -81,7 +80,6 @@ app.post('/admin/logout', (req, res, next) => {
 
     // Clear cookies
     res.clearCookie('jwt');
-    res.clearCookie('ath');
     return res.send();
 
 });
@@ -96,7 +94,7 @@ app.get('/admin/verifyUser', (req, res, next) => {
         If a valid JWT is sent in a cookie, the user is logged it
         Otherwise, no user is logged in
     */
-    const token = req.cookies.token;
+    const token = req.cookies.jwt;
 
     // No token sent
     if (!token) return res.send(false);

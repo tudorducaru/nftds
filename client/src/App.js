@@ -10,13 +10,36 @@ import NewProject from './pages/newProject/newProject';
 import UpdateProject from './pages/updateProject/updateProject';
 
 import RequireAuth from './components/requireAuth';
-import { useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import DataService from './services/dataService';
+import { AuthContext } from './contexts/authContext';
 
 function App() {
 
+  const { loginUser, logoutUser } = useContext(AuthContext);
+
+  // Specifies whether or not user status has been received from the server
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+
+    // Check if the user is logged in
+    DataService.verifyUser()
+      .then(loggedIn => {
+
+        // Set the value of the user in the context according to the login status
+        if (loggedIn) loginUser();
+        else logoutUser();
+
+      })
+      .catch(errorMessage => {
+
+        console.log(errorMessage);
+        logoutUser();
+
+      })
+      .finally(() => setLoading(false));
     
     // Try to get CSRF token from the server
     DataService.getCsrfToken()
@@ -24,7 +47,7 @@ function App() {
 
   }, []);
 
-  return (
+  return loading ? <div></div> : (
 
     // Set up routes
     <Routes>
