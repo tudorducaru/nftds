@@ -5,7 +5,12 @@ const uuid = require('uuid');
 const express = require('express');
 const app = express();
 
+// Serve the static assets from the build folder
+const path = require('path');
+app.use(express.static(path.resolve(__dirname, './client/build')));
+
 // Configure environment variables
+console.log(`/.env.${process.env.NODE_ENV}`);
 require('dotenv').config();
 
 // Connect to MySQL database
@@ -311,7 +316,8 @@ app.get('/admin/csrfToken', (req, res, next) => {
 // Handle all other get requests
 app.get('*', (req, res, next) => {
 
-    return res.send();
+    // Serve the react app
+    res.sendFile(path.join(__dirname, './client/build', 'index.html'));
 
 });
 
