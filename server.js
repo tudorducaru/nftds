@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const uuid = require('uuid');
+const cors = require('cors');
 
 const express = require('express');
 const app = express();
@@ -319,7 +320,7 @@ app.get('/admin/csrfToken', (req, res, next) => {
     Use email router to handle sending emails
     for andytheartist.xyz
 */
-app.use('/andytheartist', emailRouter);
+app.use('/andytheartist', cors(), emailRouter);
 
 // Handle all other get requests
 app.get('*', (req, res, next) => {
