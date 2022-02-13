@@ -16,7 +16,7 @@ var transporter = nodemailer.createTransport({
 emailRouter.get('/sendEmail', (req, res, next) => {
     
     // Verify that all parameters have been provided
-    if (!req.body || !req.body.email || !req.body.collectionName || !req.body.pack || !req.body.price) {
+    if (!req.body || !req.body.email || !req.body.collectionName || !req.body.pack || !req.body.price || !req.body.txHash) {
         return res.status(400).send('Not all parameters provided in the request body');
     }
 
@@ -25,7 +25,7 @@ emailRouter.get('/sendEmail', (req, res, next) => {
         from: 'clients.andytheartist@gmail.com',
         to: 'manea.andy@gmail.com',
         subject: 'New NFT Design Client!',
-        text: `Client email: ${req.body.email} \nCollection name: ${req.body.collectionName} \n\nPack Purchased: ${req.body.pack} \nPrice paid: ${req.body.price} ETH`
+        text: `Client email: ${req.body.email} \nCollection name: ${req.body.collectionName} \n\nPack Purchased: ${req.body.pack} \nPrice paid: ${req.body.price} ETH\n\nTransaction hash: ${req.body.txHash}`
     };
 
     // Send mail
