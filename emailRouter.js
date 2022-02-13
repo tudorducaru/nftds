@@ -25,7 +25,7 @@ emailRouter.get('/sendEmail', (req, res, next) => {
         from: 'clients.andytheartist@gmail.com',
         to: 'manea.andy@gmail.com',
         subject: 'New NFT Design Client!',
-        text: `Client email: ${req.query.email} \nCollection name: ${req.query.collectionName} \n\nPack Purchased: ${req.body.pack} \n\nTransaction hash: ${req.body.txHash}`
+        text: `Client email: ${req.query.email} \nCollection name: ${req.query.collectionName} \n\nPack Purchased: ${req.query.pack} \n\nTransaction hash: ${req.query.txHash}`
     };
 
     // Send mail
