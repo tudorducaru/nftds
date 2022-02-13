@@ -23,12 +23,9 @@ emailRouter.get('/sendEmail', (req, res, next) => {
     // Construct mail
     let mailOptions = {
         from: 'clients.andytheartist@gmail.com',
-        to: 'tducaru@gmail.com',
+        to: 'manea.andy@gmail.com',
         subject: 'New NFT Design Client!',
-        text: `Client email: ${req.body.email} \n
-               Collection name: ${req.body.collectionName} \n\n
-               Pack Purchased: ${req.body.pack} \n
-               Price paid: ${req.body.price} ETH`
+        text: `Client email: ${req.body.email} \nCollection name: ${req.body.collectionName} \n\nPack Purchased: ${req.body.pack} \nPrice paid: ${req.body.price} ETH`
     };
 
     // Send mail
