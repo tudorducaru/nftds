@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import './homepage.css';
+import DataService from '../../services/dataService';
+import { ProjectsContext } from '../../contexts/projectsContext';
+
 
 const Homepage = props => {
-  return <h1>Homepage</h1>;
+
+    useEffect(() => {
+        DataService.getMemberCounts();
+    }, []);
+
+    return <h1>Homepage</h1>;
 };
 
 export default Homepage;

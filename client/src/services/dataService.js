@@ -142,6 +142,36 @@ class DataService {
 
     }
 
+    /*
+        Get member counts
+        @return a list of projects where each element contains member counts
+    */
+    async getMemberCounts(inviteURLs) {
+
+        // Get the projects from the server
+        const projects = await this.getProjects();
+
+        const memberCounts = {};
+
+        // Loop through each project
+        projects.forEach(async project => {
+
+            // Get the invite code from the invite URL
+            const inviteURL = project['invite_url'];
+            let urlComponents = inviteURL.split('/');
+            const inviteCode = urlComponents[urlComponents.length - 1];
+            
+            // Make a request to the Discord API to get member counts
+            const discordResponse = await axios.get(
+                ` https://discord.com/api/v9/invites/${inviteCode}?with_counts=true`
+            );
+
+            
+
+        });
+
+    }
+
 }
 
 export default new DataService();

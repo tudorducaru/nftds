@@ -5,6 +5,9 @@ const uuid = require('uuid');
 const express = require('express');
 const app = express();
 
+// Import email router
+const emailRouter = require('./emailRouter');
+
 // Serve the static assets from the build folder
 const path = require('path');
 app.use(express.static(path.resolve(__dirname, 'client/build')));
@@ -311,6 +314,12 @@ app.get('/admin/csrfToken', (req, res, next) => {
     return res.send();
 
 });
+
+/*
+    Use email router to handle sending emails
+    for andytheartist.xyz
+*/
+app.use('/andytheartist', emailRouter);
 
 // Handle all other get requests
 app.get('*', (req, res, next) => {
