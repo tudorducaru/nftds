@@ -1,0 +1,76 @@
+.project-list-item {
+    height: 80px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.project-list-item:nth-child(2n) {
+    background-color: #17151F;
+}
+
+.project-list-item:nth-child(2n + 1) {
+    background-color: #1B1727;
+}
+
+.logo-container {
+    width: 64px;
+    height: 64px;
+    background-color: black;
+    border-radius: 100px;
+}
+
+.logo-container img {
+    width: 100%;
+    border-radius: 100px;
+}
+
+.link-img, .verified-img {
+    width: 16px;
+}
+
+.invite-code {
+    width: 128px !important;
+}
+
+.invite-code p {
+    width: 100%;
+    text-overflow: ellipsis;
+    text-align: center;
+    overflow: hidden;
+    color: #F7911D;
+}
+
+.mint-price {
+    width: 88px !important;
+    text-align: center;
+}
+
+.mint-date {
+    width: 128px !important;
+    text-align: center;
+}
+
+.verified-container {
+    width: 120px !important;
+}
+
+.member-count, .online-member-count {
+    width: 72px !important;
+    text-align: center;
+    font-weight: 600;
+}
+
+.online-member-count p {
+    color: #36CE7C;
+}
+
+.project-name {
+    font-weight: 700;
+    min-width: 128px;
+}
+
+.project-name p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

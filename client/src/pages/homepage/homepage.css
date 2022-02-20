@@ -1,0 +1,11 @@
+#projects-table {
+    margin: 100px auto;
+    width: 90%;
+    /* max-width: 0%; */
+}
+
+@media (min-width: 1440px) {
+    #projects-table {
+        width: 70%;
+    }
+}
