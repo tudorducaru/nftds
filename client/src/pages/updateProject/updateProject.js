@@ -101,7 +101,7 @@ const UpdateProject = () => {
                 initialValues={{
                     name: project ? project.name : '',
                     invite_url: project ? project.invite_url : '',
-                    fakemeter: project ? project.fakemeter : false,
+                    fakemeter: project ? (project.fakemeter ? true : false) : false,
                     mint_date: project ? project.mint_date : '',
                     mint_amount: project ? project.mint_amount : 0,
                     website_link: project ? project.website_link : '',
