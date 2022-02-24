@@ -18,7 +18,7 @@
 }
 
 .dropdown-item:active {
-    background-color: #6E6EEE;
+    background-color: #6E6EEE !important;
 }
 
 #sort-label {

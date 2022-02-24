@@ -9,19 +9,45 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import { RiArrowDropUpLine } from 'react-icons/ri';
+import { sortProjects } from '../../helpers/sorting';
 
 const Homepage = props => {
 
     // Kepp the list of projects (with member counts) in local state
     const [projects, setProjects] = useState([]);
 
+    // Sorting options
+    const [sortingField, setSortingField] = useState('created_at');
+    const [sortingDirection, setSortingDirection] = useState('ASC');
+
     useEffect(() => {
 
         // Get member counts for all projects in the database
         DataService.getMemberCounts()
-            .then(data => setProjects(data))
+            .then(data => {
+
+                // Sort the projects by creation time
+                sortProjects(data, 'created_at', 'ASC');
+
+                // Update state
+                setProjects(data);
+
+            })
             .catch(errorMessage => console.log(errorMessage));
     }, []);
+
+    // Sort the projects every time the sorting field or sorting direction changes
+    useEffect(() => {
+
+        // Sort
+        sortProjects(projects, sortingField, sortingDirection);
+
+        // Update state
+        setProjects(projects.slice());
+
+
+
+    }, [sortingField, sortingDirection])
 
     return (
         <div>
@@ -35,15 +61,21 @@ const Homepage = props => {
                             </Col>
                             <Col className='col-auto ps-2 pe-0'>
                                 <DropdownButton id='sort-dropdown-button' title='Online users'>
-                                    <Dropdown.Item>Total users</Dropdown.Item>
-                                    <Dropdown.Item>Online users</Dropdown.Item>
-                                    <Dropdown.Item>Fakemeter</Dropdown.Item>
-                                    <Dropdown.Item>Mint date</Dropdown.Item>
-                                    <Dropdown.Item>Mint price</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSortingField('name')}>Name</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSortingField('created_at')}>Date added</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSortingField('member_count')}>Total users</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSortingField('online_count')}>Online users</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSortingField('fakemeter')}>Fakemeter</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSortingField('mint_date')}>Mint date</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSortingField('mint_amount')}>Mint price</Dropdown.Item>
                                 </DropdownButton>
                             </Col>
                             <Col className='col-auto p-0'>
-                                <RiArrowDropDownLine size={32} />
+                                {
+                                    sortingDirection === 'ASC' ?
+                                        <RiArrowDropUpLine onClick={() => setSortingDirection('DESC')} size={32} /> :
+                                        <RiArrowDropDownLine onClick={() => setSortingDirection('ASC')} size={32} />
+                                }
                             </Col>
                         </Row>
                     </Col>
@@ -79,9 +111,10 @@ const Homepage = props => {
 
                 {
                     projects.map(project => {
-                        return <ProjectListItem project={project} key={project.id} />
+                        return <ProjectListItem key={project.id} project={project} />
                     })
                 }
+
             </Container>
         </div>
     );

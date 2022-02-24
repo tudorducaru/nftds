@@ -7,13 +7,29 @@
     @return nothing, arrays are passed by reference
 */
 export const sortProjects = (projects, sort_field, sort_direction) => {
+
     projects.sort((a, b) => {
 
-        if (sort_direction === 'ASC') {
-            return a[sort_field] - b[sort_field]
+        // Fields that are strings need to be compared as strings
+        if (sort_field === 'name' || sort_field === 'mint_date') {
+            
+            if (sort_direction === 'ASC') {
+                return a[sort_field].localeCompare(b[sort_field]);
+            } else {
+                return - a[sort_field].localeCompare(b[sort_field]);
+            }
+
         } else {
-            return - (a[sort_field] - b[sort_field])
-        };
+
+            if (sort_direction === 'ASC') {
+                return a[sort_field] - b[sort_field];
+            } else {
+                return - (a[sort_field] - b[sort_field]);
+            };
+
+        }
+
+        
         
     })
 };
