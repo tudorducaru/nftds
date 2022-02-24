@@ -1,5 +1,5 @@
 #projects-table {
-    margin: 100px auto;
+    margin: 0 auto;
     width: 90%;
     /* max-width: 0%; */
 }
@@ -48,4 +48,36 @@
     #projects-table {
         width: 70%;
     }
+}
+
+.search-div {
+    position: relative;
+    width: 500px;
+    height: 48px;
+    margin: 32px auto;
+    display: flex;
+    align-items: center;
+}
+
+.search-div input {
+    border-radius: 100px;
+    padding-left: 20px;
+    background-color: #17151F;
+    border: none;
+    outline: none;
+    color: #ebebeb;
+    font-size: 14px;
+    width: 100%;
+    height: 100%;
+}
+
+.search-div input::placeholder {
+    color: #484065;
+}
+
+.search-div img {
+    position: absolute;
+    width: 24px;
+    right: 0;
+    margin-right: 16px;
 }

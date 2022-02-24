@@ -10,6 +10,8 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import { RiArrowDropUpLine } from 'react-icons/ri';
 import { sortProjects, getLabel } from '../../helpers/sorting';
+import { searchProjects } from '../../helpers/filtering';
+import search from '../../search.png';
 
 const Homepage = props => {
 
@@ -19,6 +21,9 @@ const Homepage = props => {
     // Sorting options
     const [sortingField, setSortingField] = useState('created_at');
     const [sortingDirection, setSortingDirection] = useState('ASC');
+
+    // Filter by name
+    const [searchInput, setSearchInput] = useState('');
 
     useEffect(() => {
 
@@ -45,13 +50,21 @@ const Homepage = props => {
         // Update state
         setProjects(projects.slice());
 
-
-
-    }, [sortingField, sortingDirection])
+    }, [sortingField, sortingDirection]);
 
     return (
         <div>
             <Container id='projects-table'>
+
+                <div className='search-div'>
+                    <input
+                        onChange={(e) => setSearchInput(e.target.value)}
+                        placeholder='Search Discord server...'
+                        type='text'
+                    >
+                    </input>
+                    <img src={search}></img>
+                </div>
 
                 <Row id='projects-table-header' className='mb-0'>
                     <Col>
@@ -110,7 +123,7 @@ const Homepage = props => {
                 </Row>
 
                 {
-                    projects.map(project => {
+                    searchProjects(projects, searchInput).map(project => {
                         return <ProjectListItem key={project.id} project={project} />
                     })
                 }
