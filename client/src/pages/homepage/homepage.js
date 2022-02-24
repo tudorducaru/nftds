@@ -12,6 +12,8 @@ import { RiArrowDropUpLine } from 'react-icons/ri';
 import { sortProjects, getLabel } from '../../helpers/sorting';
 import { searchProjects } from '../../helpers/filtering';
 import search from '../../search.png';
+import Navbar from 'react-bootstrap/Navbar';
+import logo from '../../logo_NFTDS.png';
 
 const Homepage = props => {
 
@@ -54,6 +56,18 @@ const Homepage = props => {
 
     return (
         <div>
+
+            <Navbar className='py-1'>
+                <Container className='ms-0'>
+                    <Navbar.Brand href="/">
+                        <img
+                            src={logo}
+                        >
+                        </img>
+                    </Navbar.Brand>
+                </Container>
+            </Navbar>
+
             <Container id='projects-table'>
 
                 <div className='search-div'>
