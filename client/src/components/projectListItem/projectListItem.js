@@ -7,6 +7,7 @@ import discord_link_img from '../../discord_link.png';
 import twitter_link_img from '../../twitter_link.png';
 import verified_img from '../../verified.png';
 import { getInviteCode } from '../../helpers/inviteUrl';
+import { format, parseISO } from 'date-fns';
 
 const ProjectListItem = props => {
 
@@ -80,7 +81,7 @@ const ProjectListItem = props => {
 
             {/* Mint date */}
             <Col className='col-auto mint-date'>
-                <p>{project.mint_date}</p>
+                <p>{ format(parseISO(project.mint_date), 'dd MMM yyyy') }</p>
             </Col>
 
             {/* Mint price */}

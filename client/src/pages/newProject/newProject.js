@@ -9,6 +9,7 @@ import DataService from '../../services/dataService';
 import { useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 import { ProjectsContext } from '../../contexts/projectsContext';
+import { format, parseISO, toDate } from 'date-fns';;
 
 const NewProject = () => {
 
@@ -46,7 +47,7 @@ const NewProject = () => {
                 validateOnBlur={false}
                 validateOnChange={false}
                 onSubmit={(values, { setSubmitting }) => {
-                    
+
                     DataService.addProject(values)
                         .then(project => {
 
@@ -117,7 +118,7 @@ const NewProject = () => {
                             <Form.Label>Mint Date</Form.Label>
                             <Field
                                 name='mint_date'
-                                type='text'
+                                type='date'
                                 placeholder='Enter mint date...'
                                 isInvalid={!!errors.mint_date}
                                 as={Form.Control}

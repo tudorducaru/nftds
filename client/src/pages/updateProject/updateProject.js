@@ -189,7 +189,7 @@ const UpdateProject = () => {
                             <Form.Label>Mint Date</Form.Label>
                             <Field
                                 name='mint_date'
-                                type='text'
+                                type='date'
                                 placeholder='Enter mint date...'
                                 isInvalid={!!errors.mint_date}
                                 as={Form.Control}
