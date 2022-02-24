@@ -50,12 +50,16 @@
     text-align: center;
 }
 
+.links {
+    width: 100px !important;
+}
+
 .verified-container {
     width: 120px !important;
 }
 
 .member-count, .online-member-count {
-    width: 72px !important;
+    width: 100px !important;
     text-align: center;
     font-weight: 600;
 }

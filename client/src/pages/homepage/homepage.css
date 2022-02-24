@@ -4,6 +4,46 @@
     /* max-width: 0%; */
 }
 
+#projects-table-header {
+    height: 48px;
+    align-items: center;
+    width: 100%;
+}
+
+#projects-table-header p {
+    font-size: 12px;
+    text-align: center;
+    font-weight: 400;
+    color: #484065;
+}
+
+.dropdown-item:active {
+    background-color: #6E6EEE;
+}
+
+#sort-label {
+    color: #EBEBEB !important;
+}
+
+#sort-dropdown-button {
+    font-size: 12px;
+    color: #F7911D;
+    background: none;
+    border: none;
+    width: auto;
+    box-shadow: none;
+    padding: 0;
+}
+
+#sort-dropdown-button:after {
+    content: none;
+}
+
+#projects-table-header svg {
+    cursor: pointer;
+    color: #EBEBEB;
+}
+
 @media (min-width: 1440px) {
     #projects-table {
         width: 70%;

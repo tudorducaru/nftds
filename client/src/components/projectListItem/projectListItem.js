@@ -43,7 +43,7 @@ const ProjectListItem = props => {
             </Col>
 
             {/* Links */}
-            <Col className='col-auto'>
+            <Col className='col-auto links'>
                 <Row className='flex-nowrap'>
                     <Col className='col-auto gx-3'>
                         <a href={project.website_link}>
