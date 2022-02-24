@@ -11,7 +11,6 @@ import { getInviteCode } from '../../helpers/inviteUrl';
 const ProjectListItem = props => {
 
     const project = props.project;
-    console.log(project);
 
     return (
         <Row className='project-list-item align-items-center'>

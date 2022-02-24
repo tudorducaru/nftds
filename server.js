@@ -194,11 +194,16 @@ app.post('/admin/projects', (req, res, next) => {
     const website_link = req.body.website_link;
     const twitter_link = req.body.twitter_link;
 
+    // Get current time
+    const created_at = Date.now();
+
     // Insert the project into the database
     dbConnection.query(
-        'INSERT INTO projects VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-        [id, name, invite_url, fakemeter, mint_date, mint_amount, website_link, twitter_link],
+        'INSERT INTO projects VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [id, name, invite_url, fakemeter, mint_date, mint_amount, website_link, twitter_link, created_at],
         (err, results) => {
+
+            console.log(err);
 
             // Check if there were any errors
             if (err) return res.status(500).send('Internal server error');

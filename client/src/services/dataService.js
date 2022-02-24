@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getInviteCode } from '../helpers/inviteUrl';
+import { sortProjects } from '../helpers/sorting';
 
 class DataService {
 
@@ -197,6 +198,9 @@ class DataService {
             }
 
         }))
+
+        // Sort the projects by creation time
+        sortProjects(memberCounts, 'created_at', 'ASC');
 
         return memberCounts;
 
