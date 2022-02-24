@@ -9,7 +9,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import { RiArrowDropUpLine } from 'react-icons/ri';
-import { sortProjects } from '../../helpers/sorting';
+import { sortProjects, getLabel } from '../../helpers/sorting';
 
 const Homepage = props => {
 
@@ -60,7 +60,7 @@ const Homepage = props => {
                                 <p id='sort-label'>Sort by:</p>
                             </Col>
                             <Col className='col-auto ps-2 pe-0'>
-                                <DropdownButton id='sort-dropdown-button' title='Online users'>
+                                <DropdownButton id='sort-dropdown-button' title={getLabel(sortingField)}>
                                     <Dropdown.Item onClick={() => setSortingField('name')}>Name</Dropdown.Item>
                                     <Dropdown.Item onClick={() => setSortingField('created_at')}>Date added</Dropdown.Item>
                                     <Dropdown.Item onClick={() => setSortingField('member_count')}>Total users</Dropdown.Item>

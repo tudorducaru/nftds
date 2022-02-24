@@ -12,7 +12,7 @@ export const sortProjects = (projects, sort_field, sort_direction) => {
 
         // Fields that are strings need to be compared as strings
         if (sort_field === 'name' || sort_field === 'mint_date') {
-            
+
             if (sort_direction === 'ASC') {
                 return a[sort_field].localeCompare(b[sort_field]);
             } else {
@@ -29,7 +29,33 @@ export const sortProjects = (projects, sort_field, sort_direction) => {
 
         }
 
-        
-        
+
+
     })
 };
+
+/*
+    Get label based on sorting field
+    @param sorting_field - the field of the project object that the projects are sorted by
+    @return label - label corresponding to the sorting field
+*/
+export const getLabel = sorting_field => {
+
+    switch (sorting_field) {
+        case 'name':
+            return 'Project name';
+        case 'created_at':
+            return 'Standard';
+        case 'member_count':
+            return 'Total users';
+        case 'online_count':
+            return 'Online users';
+        case 'fakemeter':
+            return 'Fakemeter';
+        case 'mint_date':
+            return 'Mint date';
+        case 'mint_amount':
+            return 'Mint price';
+    }
+
+}
