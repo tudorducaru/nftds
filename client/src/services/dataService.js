@@ -26,7 +26,7 @@ class DataService {
         try {
 
             const response = await axios.get(
-                '/admin/verifyUser'
+                'https://nftds01.herokuapp.com/admin/verifyUser'
             );
             return response.data;
 
