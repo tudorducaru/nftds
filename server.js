@@ -33,7 +33,9 @@ const csurf = require('csurf');
 app.use(csurf({
     cookie: {
         httpOnly: true,
-        secure: true
+
+        // Only send secure cookies in production
+        secure: process.env.NODE_ENV === 'production'
     }
 }));
 
@@ -155,8 +157,6 @@ app.get('/projects', (req, res, next) => {
         // Get Twitter follower counts for the projects
         await getTwitterFollowers(projects);
 
-
-        console.log(projects);
         return res.send(projects);
 
     });
@@ -313,6 +313,71 @@ app.put('/admin/projects/:projectID', (req, res, next) => {
 
         }
     )
+
+});
+
+// Submit project request route
+app.post('/submit-project', (req, res, next) => {
+
+    // Check that all fields are in the request body
+    if (
+        !req.body ||
+        !req.body.name ||
+        !req.body.invite_url ||
+        !req.body.mint_date ||
+        !req.body.mint_amount ||
+        !req.body.website_link ||
+        !req.body.twitter_link || 
+        !req.body.owner_email
+    ) {
+        return res.status(400).send('Please provide all required information');
+    }
+
+    // Get project information
+    let id = uuid.v1();
+
+    // Need to switch 1st and 3rd field to be able to order by creation time
+    const id_components = id.split('-');
+    id = `${id_components[2]}-${id_components[1]}-${id_components[0]}`;
+    for (let i = 3; i < id_components.length; i++) {
+        id += '-' + id_components[i];
+    }
+
+    const name = req.body.name;
+    const invite_url = req.body.invite_url;
+    const mint_date = req.body.mint_date;
+    const mint_amount = req.body.mint_amount;
+    const website_link = req.body.website_link;
+    const twitter_link = req.body.twitter_link;
+    const owner_email = req.body.owner_email;
+
+    // Get current time
+    const created_at = Date.now();
+
+    // Insert the project into the database
+    dbConnection.query(
+        'INSERT INTO project_requests VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [id, name, invite_url, mint_date, mint_amount, website_link, twitter_link, created_at, owner_email],
+        (err, results) => {
+
+            // Check if there were any errors
+            if (err) return res.status(500).send('Internal server error');
+
+            // Send back the project object
+            return res.status(201).send({
+                id,
+                name,
+                invite_url,
+                mint_date,
+                mint_amount,
+                website_link,
+                twitter_link,
+                created_at,
+                owner_email
+            });
+
+        }
+    );
 
 });
 
