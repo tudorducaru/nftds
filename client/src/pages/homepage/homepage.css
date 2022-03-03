@@ -1,7 +1,6 @@
 #projects-table {
     margin: 0 auto;
-    width: 90%;
-    /* max-width: 0%; */
+    width: 1200px;
 }
 
 #projects-table-header {
@@ -42,12 +41,6 @@
 #projects-table-header svg {
     cursor: pointer;
     color: #EBEBEB;
-}
-
-@media (min-width: 1440px) {
-    #projects-table {
-        width: 70%;
-    }
 }
 
 .search-div {

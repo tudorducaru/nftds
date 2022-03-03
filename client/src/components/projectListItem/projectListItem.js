@@ -43,6 +43,11 @@ const ProjectListItem = props => {
                 <p>{project.online_count.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</p>
             </Col>
 
+            {/* Twitter Followers Count */}
+            <Col className='col-auto twitter-followers-count'>
+                <p>{project.twitter_followers_count.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</p>
+            </Col>
+
             {/* Links */}
             <Col className='col-auto links'>
                 <Row className='flex-nowrap'>
@@ -91,7 +96,7 @@ const ProjectListItem = props => {
 
             {/* Invite Code */}
             <Col className='col-auto invite-code'>
-                <p>{getInviteCode(project.invite_url).toUpperCase()}</p>
+                <p></p>
             </Col>
 
         </Row>

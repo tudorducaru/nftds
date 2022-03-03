@@ -50,6 +50,16 @@
     text-align: center;
 }
 
+.twitter-followers-count {
+    width: 128px !important;
+    text-align: center;
+}
+
+.twitter-followers-count p {
+    color: #44A8CD;
+    font-weight: 600;
+}
+
 .links {
     width: 100px !important;
 }

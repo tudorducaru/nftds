@@ -39,7 +39,7 @@ const getTwitterFollowers = async projects => {
             // Find the project in the array by their Twitter link
             const project = projects.filter(p => p.twitter_link.toLowerCase() === `https://twitter.com/${entry.username}`.toLowerCase())[0];
 
-            project.twitter_follower_count = entry.public_metrics.followers_count;
+            project.twitter_followers_count = entry.public_metrics.followers_count;
 
         });
         

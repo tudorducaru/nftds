@@ -80,7 +80,7 @@ const Homepage = props => {
                     <img src={search}></img>
                 </div>
 
-                <Row id='projects-table-header' className='mb-0'>
+                <Row id='projects-table-header' className='mb-2'>
                     <Col>
                         <Row className='align-items-center'>
                             <Col className='col-auto p-0'>
@@ -113,6 +113,10 @@ const Homepage = props => {
 
                     <Col className='col-auto online-member-count'>
                         <p>Online users</p>
+                    </Col>
+
+                    <Col className='col-auto twitter-followers-count'>
+                        <p>Twitter Followers</p>
                     </Col>
 
                     <Col className='col-auto links'>
