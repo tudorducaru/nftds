@@ -7,14 +7,14 @@ class DataService {
     // Make request that returns a CSRF token
     async getCsrfToken() {
         try {
-            
+
             const response = await axios.get(
                 '/admin/csrfToken'
             );
             return;
 
         } catch (err) {
-            
+
             // Failure to get CSRF token
             return err.response.data;
 
@@ -43,13 +43,13 @@ class DataService {
 
             const response = await axios.get(
                 '/projects',
-                { 
-                    withCredentials: true 
+                {
+                    withCredentials: true
                 }
             );
 
             return response.data;
-            
+
         } catch (err) {
 
             // Unsuccessful request
@@ -192,16 +192,37 @@ class DataService {
                 })
 
             } catch (err) {
-                
+
                 // Failure to get member counts from discord
                 throw err.response.data;
             }
 
         }))
-        
+
 
         return memberCounts;
 
+    }
+
+    // Submit project
+    async submitProject(projectInfo) {
+        try {
+
+            const response = await axios.post(
+                '/submit-project',
+                projectInfo,
+                {
+                    withCredentials: true
+                }
+            );
+
+            return response.data;
+
+        } catch (err) {
+
+            // Failure to insert project
+            throw err.response.data;
+        }
     }
 
 }

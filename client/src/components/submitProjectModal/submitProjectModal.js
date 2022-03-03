@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import * as yup from 'yup';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
+import DataService from '../../services/dataService';
 
 const SubmitProjectModal = props => {
 
@@ -16,7 +17,10 @@ const SubmitProjectModal = props => {
         <Modal
             className='submit-project-modal'
             show={props.show}
-            onHide={props.handleClose}
+            onHide={() => {
+                setServerError('');
+                props.handleClose();
+            }}
         >
             <Modal.Header className='flex-column'>
                 <Modal.Title>
@@ -28,7 +32,7 @@ const SubmitProjectModal = props => {
             <Modal.Body className='align-self-center'>
                 <Formik
                     initialValues={{
-                        email: '',
+                        owner_email: '',
                         name: '',
                         invite_url: '',
                         fakemeter: false,
@@ -38,7 +42,7 @@ const SubmitProjectModal = props => {
                         twitter_link: ''
                     }}
                     validationSchema={yup.object({
-                        email: yup.string().email('Invalid email address').required('Please enter your email address'),
+                        owner_email: yup.string().email('Invalid email address').required('Please enter your email address'),
                         name: yup.string().required('Please enter project name'),
                         invite_url: yup.string().required('Please enter invite URL'),
                         mint_date: yup.string().required('Please enter mint date'),
@@ -52,7 +56,13 @@ const SubmitProjectModal = props => {
                     validateOnChange={false}
                     onSubmit={(values, { setSubmitting }) => {
 
-
+                        DataService.submitProject(values)
+                            .then(() => {
+                                setServerError('');
+                                props.handleClose();
+                            })
+                            .catch(errorMessage => setServerError(errorMessage))
+                            .finally(() => setSubmitting(false));
 
                     }}
                 >
@@ -70,14 +80,14 @@ const SubmitProjectModal = props => {
 
                             <Form.Group className='form-group'>
                                 <Field
-                                    name='email'
+                                    name='owner_email'
                                     type='text'
                                     placeholder='Your email'
                                     isInvalid={!!errors.name}
                                     as={Form.Control}
                                 />
                                 <Form.Control.Feedback type='invalid'>
-                                    {errors.email}
+                                    {errors.owner_email}
                                 </Form.Control.Feedback>
                             </Form.Group>
 
@@ -166,7 +176,7 @@ const SubmitProjectModal = props => {
                                 </Form.Control.Feedback>
                             </Form.Group>
 
-                            <Button className='custom-button mb-3' type="submit" disabled={isSubmitting}>
+                            <Button className='custom-button mt-4 mb-3' type="submit" disabled={isSubmitting}>
                                 LIST YOUR COLLECTION
                             </Button>
                         </Form>
