@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const uuid = require('uuid');
 const cors = require('cors');
 
+const getTwitterFollowers = require('./apis/twitter_api');
+
 const express = require('express');
 const app = express();
 
@@ -145,12 +147,17 @@ app.get('/admin/verifyUser', (req, res, next) => {
 app.get('/projects', (req, res, next) => {
 
     // Query the database
-    dbConnection.query('SELECT * FROM projects', (err, results) => {
+    dbConnection.query('SELECT * FROM projects', async (err, projects) => {
 
         // Check if there were any errors
         if (err) return res.status(500).send('Internal server error');
 
-        return res.send(results);
+        // Get Twitter follower counts for the projects
+        await getTwitterFollowers(projects);
+
+
+        console.log(projects);
+        return res.send(projects);
 
     });
 

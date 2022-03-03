@@ -9,7 +9,7 @@ class DataService {
         try {
             
             const response = await axios.get(
-                'https://nftds01.herokuapp.com/admin/csrfToken'
+                '/admin/csrfToken'
             );
             return;
 
@@ -26,7 +26,7 @@ class DataService {
         try {
 
             const response = await axios.get(
-                'https://nftds01.herokuapp.com/admin/verifyUser'
+                '/admin/verifyUser'
             );
             return response.data;
 
