@@ -14,6 +14,9 @@ import { searchProjects } from '../../helpers/filtering';
 import search from '../../search.png';
 import Navbar from 'react-bootstrap/Navbar';
 import logo from '../../logo_NFTDS.png';
+import Button from 'react-bootstrap/Button';
+import premium from '../../premium.png';
+import SubmitProjectModal from '../../components/submitProjectModal/submitProjectModal';
 
 const Homepage = props => {
 
@@ -26,6 +29,9 @@ const Homepage = props => {
 
     // Filter by name
     const [searchInput, setSearchInput] = useState('');
+
+    // Show submit project modal
+    const [showSubmitModal, setShowSubmitModal] = useState(true);
 
     useEffect(() => {
 
@@ -58,13 +64,19 @@ const Homepage = props => {
         <div>
 
             <Navbar className='py-1'>
-                <Container className='ms-0'>
+                <Container className='ms-0' fluid>
                     <Navbar.Brand href="/">
                         <img
                             src={logo}
                         >
                         </img>
                     </Navbar.Brand>
+                    <Navbar.Collapse className='justify-content-end'>
+                        <Button className='custom-button mt-2' onClick={() => setShowSubmitModal(true)}>
+                            <img src={premium}></img>
+                            ADD YOUR PROJECT FREE
+                        </Button>
+                    </Navbar.Collapse>
                 </Container>
             </Navbar>
 
@@ -147,6 +159,8 @@ const Homepage = props => {
                 }
 
             </Container>
+
+            <SubmitProjectModal show={showSubmitModal} handleClose={() => setShowSubmitModal(false)} />
         </div>
     );
 };

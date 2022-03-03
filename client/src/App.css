@@ -55,6 +55,7 @@ form {
   margin-left: 12px;
 }
 
+.modal .form-control,
 .auth-container .form-control,
 .project-form-container .form-control {
   background-color: #1B1727;
@@ -65,6 +66,7 @@ form {
   color: #ebebeb;
 }
 
+.modal .form-control:focus,
 .auth-container .form-control:focus,
 .project-form-container .form-control:focus {
   background-color: #1B1727;
@@ -115,11 +117,13 @@ form {
   border-radius: 100px !important;
   background-color: #6E6EEE !important;
   width: 200px;
+  font-size: 14px !important;
   border: none !important;
 }
 
 .custom-button:hover {
   background-color: #6E6EEE !important;
+  opacity: 0.8;
 }
 
 .custom-button:focus,

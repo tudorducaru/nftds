@@ -1,0 +1,35 @@
+.submit-project-modal .modal-dialog {
+    width: 600px;
+    max-width: 600px;
+}
+
+.submit-project-modal .modal-content {
+    background-color: #17151F !important;
+    border-radius: 32px !important;
+}
+
+.submit-project-modal .modal-header {
+    padding-top: 32px;
+    padding-bottom: 32px;
+}
+
+.submit-project-modal .modal-title {
+    color: #EBEBEB;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.submit-project-modal .subtitle {
+    color: #484065;
+    font-size: 14px;
+    width: 70%;
+    text-align: center;
+}
+
+.submit-project-modal .modal-body {
+    width: 70%;
+}
+
+.submit-project-modal .form-group {
+    margin-bottom: 16px !important;
+}

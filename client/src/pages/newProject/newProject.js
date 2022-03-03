@@ -9,7 +9,6 @@ import DataService from '../../services/dataService';
 import { useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 import { ProjectsContext } from '../../contexts/projectsContext';
-import { format, parseISO, toDate } from 'date-fns';;
 
 const NewProject = () => {
 
