@@ -21,7 +21,8 @@ const MintReminderModal = props => {
             className='mint-reminder-modal'
             show={props.show}
             onHide={() => {
-                setServerError('');
+                setSuccessMessage();
+                setServerError();
                 props.handleClose();
             }}
         >
