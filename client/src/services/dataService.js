@@ -220,8 +220,32 @@ class DataService {
 
         } catch (err) {
 
-            // Failure to insert project
+            // Failure to submit project
             throw err.response.data;
+        }
+    }
+
+    // Set mint reminder
+    async setMintReminder(email, projectID) {
+        try {
+
+            const response = await axios.post(
+                `/set-mint-reminder`,
+                {
+                    email, projectID
+                },
+                {
+                    withCredentials: true
+                }
+            );
+
+            return response.data;
+
+        } catch (err) {
+
+            // Failure to set reminder
+            throw err.response.data;
+
         }
     }
 

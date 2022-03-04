@@ -11,6 +11,9 @@ import DataService from '../../services/dataService';
 import bell from '../../bell.jpeg';
 
 const MintReminderModal = props => {
+
+    // Server responses
+    const [successMessage, setSuccessMessage] = useState();
     const [serverError, setServerError] = useState();
 
     return (
@@ -42,7 +45,16 @@ const MintReminderModal = props => {
                     validateOnChange={false}
                     onSubmit={(values, { setSubmitting }) => {
 
-                        
+                        // Clear any messages
+                        setSuccessMessage();
+                        setServerError();
+
+                        DataService.setMintReminder(values.email, props.projectID)
+                            .then(response => setSuccessMessage(response))
+                            .catch(errorMessage => {
+                                setServerError(errorMessage)
+                            })
+                            .finally(() => setSubmitting(false));
 
                     }}
                 >
@@ -52,6 +64,8 @@ const MintReminderModal = props => {
                         errors
                     }) => (
                         <Form onSubmit={handleSubmit}>
+
+                            {successMessage && <Alert variant='success'>{successMessage}</Alert>}
 
                             {serverError && <Alert variant='danger'>{serverError}</Alert>}
 
