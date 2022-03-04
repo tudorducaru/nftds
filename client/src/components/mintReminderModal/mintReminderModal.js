@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 import DataService from '../../services/dataService';
-import bell from '../../bell.jpeg';
+import notification from '../../notification.png';
 
 const MintReminderModal = props => {
 
@@ -27,7 +27,7 @@ const MintReminderModal = props => {
             }}
         >
             <Modal.Header className='flex-column'>
-                <img src={bell} className='mb-2'></img>
+                <img src={notification} className='mb-3'></img>
                 <Modal.Title>
                     Set a reminder for mint date
                 </Modal.Title>
