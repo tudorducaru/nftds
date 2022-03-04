@@ -6,7 +6,7 @@ import website_link_img from '../../website_link.png';
 import discord_link_img from '../../discord_link.png';
 import twitter_link_img from '../../twitter_link.png';
 import verified_img from '../../verified.png';
-import { getInviteCode } from '../../helpers/inviteUrl';
+import bell from '../../bell.jpeg';
 import { format, parseISO } from 'date-fns';
 
 const ProjectListItem = props => {
@@ -95,8 +95,8 @@ const ProjectListItem = props => {
             </Col>
 
             {/* Invite Code */}
-            <Col className='col-auto invite-code'>
-                <p></p>
+            <Col className='col-auto invite-code d-flex justify-content-center'>
+                <img src={bell} onClick={props.handleReminderModalOpen}></img>
             </Col>
 
         </Row>

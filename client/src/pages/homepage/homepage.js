@@ -17,6 +17,7 @@ import logo from '../../logo_NFTDS.png';
 import Button from 'react-bootstrap/Button';
 import premium from '../../premium.png';
 import SubmitProjectModal from '../../components/submitProjectModal/submitProjectModal';
+import MintReminderModal from '../../components/mintReminderModal/mintReminderModal';
 
 const Homepage = props => {
 
@@ -31,7 +32,25 @@ const Homepage = props => {
     const [searchInput, setSearchInput] = useState('');
 
     // Show submit project modal
-    const [showSubmitModal, setShowSubmitModal] = useState(true);
+    const [showSubmitModal, setShowSubmitModal] = useState(false);
+
+    // Show mint reminder modal
+    const [showReminderModal, setShowReminderModal] = useState(false);
+
+    // Store the project that was clicked on (that triggered opening of mint reminder model)
+    const [clickedProjectID, setClickedProjectID] = useState();
+
+    // Handle opening the mint reminder modal
+    const handleReminderModalOpen = projectID => {
+        setClickedProjectID(projectID);
+        setShowReminderModal(true);
+    }
+
+    // Handle closing the mint reminder modal
+    const handleReminderModalClose = () => {
+        setClickedProjectID();
+        setShowReminderModal(false);
+    }
 
     useEffect(() => {
 
@@ -148,19 +167,21 @@ const Homepage = props => {
                     </Col>
 
                     <Col className='col-auto invite-code'>
-                        <p>Invite Code</p>
+                        <p>Mint reminder</p>
                     </Col>
                 </Row>
 
                 {
                     searchProjects(projects, searchInput).map(project => {
-                        return <ProjectListItem key={project.id} project={project} />
+                        return <ProjectListItem key={project.id} project={project} handleReminderModalOpen={() => handleReminderModalOpen(project.id)} />
                     })
                 }
 
             </Container>
 
             <SubmitProjectModal show={showSubmitModal} handleClose={() => setShowSubmitModal(false)} />
+
+            <MintReminderModal show={showReminderModal} handleClose={handleReminderModalClose} projectID={clickedProjectID} />
         </div>
     );
 };

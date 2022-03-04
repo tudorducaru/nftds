@@ -83,7 +83,7 @@ const SubmitProjectModal = props => {
                                     name='owner_email'
                                     type='text'
                                     placeholder='Your email'
-                                    isInvalid={!!errors.name}
+                                    isInvalid={!!errors.email}
                                     as={Form.Control}
                                 />
                                 <Form.Control.Feedback type='invalid'>
