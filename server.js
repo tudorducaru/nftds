@@ -327,7 +327,7 @@ app.post('/submit-project', (req, res, next) => {
         !req.body.mint_date ||
         !req.body.mint_amount ||
         !req.body.website_link ||
-        !req.body.twitter_link || 
+        !req.body.twitter_link ||
         !req.body.owner_email
     ) {
         return res.status(400).send('Please provide all required information');
@@ -378,6 +378,44 @@ app.post('/submit-project', (req, res, next) => {
 
         }
     );
+
+});
+
+// Set mint reminder route
+app.post('/set-mint-reminder', (req, res, next) => {
+
+    // Check that both email and project ID have been provided
+    if (!req.body || !req.body.email || !req.body.projectID) {
+        return res.status(400).send('Please provide all required information in request body');
+    }
+
+    const email = req.body.email;
+    const projectID = req.body.projectID;
+
+    // Store the reminder in the database
+    dbConnection.query(
+        'INSERT INTO mint_reminders VALUES (?, ?)',
+        [email, projectID],
+        (err, results) => {
+
+            if (err) {
+                console.log(err);
+
+                // Send different error messages depending on the error
+                if (err.code === 'ER_NO_REFERENCED_ROW_2') {
+                    return res.status(400).send('Project with given ID does not exist in the database');
+                } else if (err.code === 'ER_DUP_ENTRY') {
+                    return res.status(400).send('A reminder for this project has already been set');
+                } else {
+                    return res.status(500).send('Internal server error');
+                }
+                
+            };
+
+            return res.status(201).send('Reminder set successfully');
+
+        }
+    );;
 
 });
 
