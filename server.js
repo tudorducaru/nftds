@@ -4,6 +4,7 @@ const uuid = require('uuid');
 const cors = require('cors');
 
 const getTwitterFollowers = require('./apis/twitter_api');
+const setMintReminders = require('./cronJobs/mintReminders');
 
 const express = require('express');
 const app = express();
@@ -20,6 +21,9 @@ require('dotenv').config();
 
 // Connect to MySQL database
 const dbConnection = require('./db.js');
+
+// Send mint reminder emails
+setMintReminders(dbConnection);
 
 // Parse incoming cookies
 const cookieParser = require('cookie-parser');
@@ -409,7 +413,7 @@ app.post('/set-mint-reminder', (req, res, next) => {
                 } else {
                     return res.status(500).send('Internal server error');
                 }
-                
+
             };
 
             return res.status(201).send('Reminder set successfully');
