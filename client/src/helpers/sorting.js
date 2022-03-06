@@ -50,6 +50,8 @@ export const getLabel = sorting_field => {
             return 'Total users';
         case 'online_count':
             return 'Online users';
+        case 'twitter_followers_count':
+            return 'Twitter followers';
         case 'fakemeter':
             return 'Fakemeter';
         case 'mint_date':

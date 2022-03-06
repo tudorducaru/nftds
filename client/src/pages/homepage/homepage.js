@@ -125,6 +125,7 @@ const Homepage = props => {
                                     <Dropdown.Item onClick={() => setSortingField('created_at')}>Date added</Dropdown.Item>
                                     <Dropdown.Item onClick={() => setSortingField('member_count')}>Total users</Dropdown.Item>
                                     <Dropdown.Item onClick={() => setSortingField('online_count')}>Online users</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSortingField('twitter_followers_count')}>Twitter followers</Dropdown.Item>
                                     <Dropdown.Item onClick={() => setSortingField('fakemeter')}>Fakemeter</Dropdown.Item>
                                     <Dropdown.Item onClick={() => setSortingField('mint_date')}>Mint date</Dropdown.Item>
                                     <Dropdown.Item onClick={() => setSortingField('mint_amount')}>Mint price</Dropdown.Item>
@@ -168,7 +169,7 @@ const Homepage = props => {
                         <p>Mint Price</p>
                     </Col>
 
-                    <Col className='col-auto invite-code'>
+                    <Col className='col-auto mint-reminder'>
                         <p>Mint reminder</p>
                     </Col>
                 </Row>
