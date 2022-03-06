@@ -25,8 +25,8 @@ const Homepage = props => {
     const [projects, setProjects] = useState([]);
 
     // Sorting options
-    const [sortingField, setSortingField] = useState('created_at');
-    const [sortingDirection, setSortingDirection] = useState('ASC');
+    const [sortingField, setSortingField] = useState('member_count');
+    const [sortingDirection, setSortingDirection] = useState('DESC');
 
     // Filter by name
     const [searchInput, setSearchInput] = useState('');
@@ -59,7 +59,7 @@ const Homepage = props => {
             .then(data => {
 
                 // Sort the projects by creation time
-                sortProjects(data, 'created_at', 'ASC');
+                sortProjects(data, 'member_count', 'DESC');
 
                 // Update state
                 setProjects(data);
@@ -73,6 +73,8 @@ const Homepage = props => {
 
         // Sort
         sortProjects(projects, sortingField, sortingDirection);
+
+        console.log(projects.slice());
 
         // Update state
         setProjects(projects.slice());
