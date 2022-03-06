@@ -88,3 +88,10 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+.project-list-item a {
+    display: flex;
+    height: 80px;
+    align-items: center;
+    text-decoration: none;
+}

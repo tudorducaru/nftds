@@ -18,18 +18,22 @@ const ProjectListItem = props => {
 
             {/* Logo */}
             <Col className='col-auto project-logo'>
-                <div className='logo-container'>
-                    {
-                        project.logo_url ?
-                            <img src={project.logo_url}></img> :
-                            <div></div>
-                    }
-                </div>
+                <a href={project.invite_url}>
+                    <div className='logo-container'>
+                        {
+                            project.logo_url ?
+                                <img src={project.logo_url}></img> :
+                                <div></div>
+                        }
+                    </div>
+                </a>
             </Col>
 
             {/* Name */}
             <Col className='project-name'>
-                <p>{project.name}</p>
+                <a href={project.invite_url}>
+                    <p>{project.name}</p>
+                </a>
             </Col>
 
             {/* Member Count */}
@@ -86,7 +90,7 @@ const ProjectListItem = props => {
 
             {/* Mint date */}
             <Col className='col-auto mint-date'>
-                <p>{ format(parseISO(project.mint_date), 'dd MMM yyyy') }</p>
+                <p>{format(parseISO(project.mint_date), 'dd MMM yyyy')}</p>
             </Col>
 
             {/* Mint price */}
