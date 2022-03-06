@@ -28,11 +28,11 @@
     width: 16px;
 }
 
-.invite-code {
+.mint-reminder {
     width: 128px !important;
 }
 
-.invite-code p {
+.mint-reminder p {
     width: 100%;
     text-overflow: ellipsis;
     text-align: center;
@@ -94,4 +94,11 @@
     height: 80px;
     align-items: center;
     text-decoration: none;
+}
+
+.links img:hover, 
+.mint-reminder img:hover {
+    transform: scale(1.2);
+    transition: all 0.5s;
+    cursor: pointer;
 }

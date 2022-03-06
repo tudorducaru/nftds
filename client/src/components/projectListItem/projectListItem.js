@@ -98,8 +98,8 @@ const ProjectListItem = props => {
                 <p>{project.mint_amount} ETH</p>
             </Col>
 
-            {/* Invite Code */}
-            <Col className='col-auto invite-code d-flex justify-content-center'>
+            {/* Mint reminder */}
+            <Col className='col-auto mint-reminder d-flex justify-content-center'>
                 <img src={notification} onClick={props.handleReminderModalOpen}></img>
             </Col>
 
