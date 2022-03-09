@@ -22,6 +22,8 @@ function App() {
   // Specifies whether or not user status has been received from the server
   const [loading, setLoading] = useState(true);
 
+  console.log('test');
+
   useEffect(() => {
 
     alert('use effect');
@@ -49,7 +51,7 @@ function App() {
 
   }, []);
 
-  return loading ? <div></div> : (
+  return loading ? <div>tudor</div> : (
 
     // Set up routes
     <Routes>
