@@ -24,6 +24,8 @@ function App() {
 
   useEffect(() => {
 
+    alert('use effect');
+
     // Check if the user is logged in
     DataService.verifyUser()
       .then(loggedIn => {
