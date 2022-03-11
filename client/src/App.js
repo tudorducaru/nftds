@@ -22,7 +22,11 @@ function App() {
   // Specifies whether or not user status has been received from the server
   const [loading, setLoading] = useState(true);
 
+  alert('test');
+
   useEffect(() => {
+
+    alert('use effect');
 
     // Check if the user is logged in
     DataService.verifyUser()
@@ -47,7 +51,7 @@ function App() {
 
   }, []);
 
-  return loading ? <div></div> : (
+  return loading ? <div>tudor</div> : (
 
     // Set up routes
     <Routes>
