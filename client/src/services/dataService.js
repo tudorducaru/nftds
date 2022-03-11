@@ -24,8 +24,6 @@ class DataService {
     // Check if the user is logged in
     async verifyUser() {
 
-        alert('make request');
-
         try {
 
             const response = await axios.get(
