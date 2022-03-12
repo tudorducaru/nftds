@@ -445,7 +445,7 @@ app.use('/andytheartist', cors(), emailRouter);
 app.get('*', (req, res, next) => {
 
     console.log(process.env.NODE_ENV);
-    console.log(req.secure);
+    console.log(req.protocol);
 
     // Only serve over https in production
     if (process.env.NODE_ENV !== 'development' && req.protocol !== 'https') {
