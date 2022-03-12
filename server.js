@@ -444,8 +444,13 @@ app.use('/andytheartist', cors(), emailRouter);
 // Handle all other get requests
 app.get('*', (req, res, next) => {
 
+    // Only serve over https in production
+    if (process.env.NODE_ENV !== 'development' && !req.secure) {
+        return res.redirect('https://' + req.headers.host + req.url);
+    }
+
     // Serve the react app
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    return res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 
 });
 
