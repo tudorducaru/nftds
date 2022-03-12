@@ -448,7 +448,7 @@ app.get('*', (req, res, next) => {
     console.log(req.secure);
 
     // Only serve over https in production
-    if (process.env.NODE_ENV !== 'development' && !req.secure) {
+    if (process.env.NODE_ENV !== 'development' && req.protocol !== 'https') {
         console.log('redirect');
         return res.redirect('https://' + req.headers.host + req.url);
     }
