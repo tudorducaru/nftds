@@ -8,6 +8,7 @@ import twitter_link_img from '../../twitter_link.png';
 import verified_img from '../../verified.png';
 import notification from '../../notification.png';
 import { format, parseISO } from 'date-fns';
+import { formatNumber } from '../../helpers/numberFormat';
 
 const ProjectListItem = props => {
 
@@ -39,17 +40,17 @@ const ProjectListItem = props => {
             {/* Member Count */}
             {/* https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript */}
             <Col className='col-auto member-count'>
-                <p>{project.member_count.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</p>
+                <p>{formatNumber(project.member_count)}</p>
             </Col>
 
             {/* Online Member Count */}
             <Col className='col-auto online-member-count'>
-                <p>{project.online_count.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</p>
+                <p>{formatNumber(project.online_count)}</p>
             </Col>
 
             {/* Twitter Followers Count */}
             <Col className='col-auto twitter-followers-count'>
-                <p>{project.twitter_followers_count.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</p>
+                <p>{formatNumber(project.twitter_followers_count)}</p>
             </Col>
 
             {/* Links */}
