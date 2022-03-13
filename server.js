@@ -56,6 +56,8 @@ app.use((req, res, next) => {
     // Only serve over https in production
     if (process.env.NODE_ENV !== 'development' && req.header('x-forwarded-proto') !== 'https') {
         return res.redirect('https://' + req.headers.host + req.url);
+    } else {
+        next();
     }
 
 })
