@@ -444,8 +444,11 @@ app.use('/andytheartist', cors(), emailRouter);
 // Handle all other get requests
 app.get('*', (req, res, next) => {
 
+    console.log(req.header('x-forwarded-proto'));
+
     // Only serve over https in production
     if (process.env.NODE_ENV !== 'development' && req.header('x-forwarded-proto') !== 'https') {
+        console.log('redirect');
         return res.redirect('https://' + req.headers.host + req.url);
     }
 
