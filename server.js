@@ -12,6 +12,17 @@ const app = express();
 // Import email router
 const emailRouter = require('./emailRouter');
 
+// Force https in production
+app.use((req, res, next) => {
+
+    if (process.env.NODE_ENV !== 'development' && req.header('x-forwarded-proto') !== 'https') {
+        return res.redirect('https://' + req.headers.host + req.url);
+    } else {
+        next();
+    }
+
+});
+
 // Serve the static assets from the build folder
 const path = require('path');
 app.use(express.static(path.resolve(__dirname, 'client/build')));
@@ -50,17 +61,6 @@ app.use((err, req, res, next) => {
     res.status(403);
     res.send('Missing CSRF token');
 });
-
-app.use((req, res, next) => {
-
-    // Only serve over https in production
-    if (process.env.NODE_ENV !== 'development' && req.header('x-forwarded-proto') !== 'https') {
-        return res.redirect('https://' + req.headers.host + req.url);
-    } else {
-        next();
-    }
-
-})
 
 /*
     Middleware that authenticates requests
