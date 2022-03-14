@@ -37,7 +37,6 @@ const ProjectListItem = props => {
             </Col>
 
             {/* Member Count */}
-            {/* https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript */}
             <Col className='col-auto member-count'>
                 <p>{project.member_count.toLocaleString().replace(',', '.')}</p>
             </Col>

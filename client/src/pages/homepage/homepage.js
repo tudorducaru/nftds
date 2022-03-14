@@ -19,6 +19,7 @@ import premium from '../../premium.png';
 import SubmitProjectModal from '../../components/submitProjectModal/submitProjectModal';
 import MintReminderModal from '../../components/mintReminderModal/mintReminderModal';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import ProjectListItemMobile from '../../components/projectListItemMobile/projectListItemMobile';
 
 const Homepage = props => {
 
@@ -188,7 +189,7 @@ const Homepage = props => {
                     searchProjects(projects, searchInput).map(project => {
                         return screenWidth > 1200 ? 
                             <ProjectListItem key={project.id} project={project} handleReminderModalOpen={() => handleReminderModalOpen(project.id)} />
-                            : <div key={project.id}>{project.name}</div>
+                            : <ProjectListItemMobile key={project.id} project={project} handleReminderModalOpen={() => handleReminderModalOpen(project.id)}/>
                     })
                 }
 

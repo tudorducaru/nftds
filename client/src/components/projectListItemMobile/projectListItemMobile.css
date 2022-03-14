@@ -1,0 +1,57 @@
+.project-list-item-mobile:nth-child(2n) {
+    background-color: #17151F;
+}
+
+.project-list-item-mobile:nth-child(2n + 1) {
+    background-color: #1B1727;
+}
+
+.logo-container-mobile {
+    width: 90px;
+    height: 90px;
+    background-color: black;
+    border-radius: 100px;
+}
+
+.logo-container-mobile img {
+    width: 100%;
+    border-radius: 100px;
+}
+
+.project-name-mobile {
+    font-weight: 700;
+}
+
+.project-name-mobile a {
+    text-decoration: none;
+}
+
+.online-member-count-mobile p {
+    color: #36CE7C;
+}
+
+.twitter-followers-count-mobile p {
+    color: #44A8CD;
+}
+
+.divider div {
+    height: 100%;
+    width: 2px;
+    background-color: #484065;
+}
+
+.link-img-mobile {
+    width: 24px;
+    filter: brightness(0) invert(1);
+}
+
+.mint-reminder-mobile {
+    border: 1px solid #F7911D;
+    padding: 4px 16px;
+    border-radius: 100px;
+}
+
+.mint-reminder-mobile p {
+    display: inline;
+    color: #F7911D;
+}
