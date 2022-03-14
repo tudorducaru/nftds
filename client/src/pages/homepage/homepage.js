@@ -124,7 +124,7 @@ const Homepage = props => {
                 </div>
 
                 <Row id='projects-table-header' className='mb-2'>
-                    <Col>
+                    <Col className='sort'>
                         <Row className='align-items-center'>
                             <Col className='col-auto p-0'>
                                 <p id='sort-label'>Sort by:</p>
@@ -186,7 +186,7 @@ const Homepage = props => {
 
                 {
                     searchProjects(projects, searchInput).map(project => {
-                        return screenWidth > 1400 ? 
+                        return screenWidth > 1200 ? 
                             <ProjectListItem key={project.id} project={project} handleReminderModalOpen={() => handleReminderModalOpen(project.id)} />
                             : <div key={project.id}>{project.name}</div>
                     })

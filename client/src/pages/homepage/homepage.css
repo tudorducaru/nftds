@@ -5,7 +5,18 @@
 #projects-table-header {
     height: 48px;
     align-items: center;
-    width: 100%;
+}
+
+#projects-table-header .col {
+    display: none;
+}
+
+.sort, .sort .col {
+    display: flex !important;
+}
+
+.sort .row {
+    margin: 0;
 }
 
 #projects-table-header p {
@@ -102,5 +113,22 @@
 
     .navbar .custom-button {
         margin: 0;
+    }
+}
+
+/* Custom breakpoint to display large project list items */
+@media only screen and (min-width: 1200px) {
+
+    #projects-table {
+        width: 1200px;
+    }
+
+    #projects-table-header .col {
+        display: block;
+    }
+
+    .sort .row {
+        margin-left: calc(-.5 * var(--bs-gutter-x));
+        margin-right: calc(-.5 * var(--bs-gutter-x));
     }
 }

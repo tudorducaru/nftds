@@ -1,7 +1,6 @@
 .project-list-item {
     height: 80px;
     font-size: 14px;
-    width: 100%;
 }
 
 .project-list-item:nth-child(2n) {
