@@ -111,7 +111,7 @@ const Homepage = props => {
                 </Container>
             </Navbar>
 
-            <Container id='projects-table'>
+            <Container id='projects-table' fluid>
 
                 <div className='search-div'>
                     <input
