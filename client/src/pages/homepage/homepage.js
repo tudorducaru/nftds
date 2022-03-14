@@ -18,6 +18,7 @@ import Button from 'react-bootstrap/Button';
 import premium from '../../premium.png';
 import SubmitProjectModal from '../../components/submitProjectModal/submitProjectModal';
 import MintReminderModal from '../../components/mintReminderModal/mintReminderModal';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 const Homepage = props => {
 
@@ -39,6 +40,9 @@ const Homepage = props => {
 
     // Store the project that was clicked on (that triggered opening of mint reminder model)
     const [clickedProjectID, setClickedProjectID] = useState();
+
+    // Store the screen width in local state in order to render the correct project list item
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
     // Handle opening the mint reminder modal
     const handleReminderModalOpen = projectID => {
@@ -74,17 +78,20 @@ const Homepage = props => {
         // Sort
         sortProjects(projects, sortingField, sortingDirection);
 
-        console.log(projects.slice());
-
         // Update state
         setProjects(projects.slice());
 
     }, [sortingField, sortingDirection]);
 
+    // Listen for page resizes
+    useEffect(() => {
+        window.addEventListener('resize', () => setScreenWidth(window.innerWidth));
+    }, []);
+
     return (
         <div>
 
-            <Navbar className='py-1'>
+            <Navbar className='py-1' expand='md'>
                 <Container className='ms-0' fluid>
                     <Navbar.Brand href="/">
                         <img
@@ -92,7 +99,10 @@ const Homepage = props => {
                         >
                         </img>
                     </Navbar.Brand>
-                    <Navbar.Collapse className='justify-content-end'>
+                    <Navbar.Toggle aria-controls='navbar-buttons'>
+                        <GiHamburgerMenu size={32} color='white' />
+                    </Navbar.Toggle>
+                    <Navbar.Collapse id='navbar-buttons'>
                         <Button className='custom-button mt-2' onClick={() => setShowSubmitModal(true)}>
                             <img src={premium}></img>
                             ADD YOUR PROJECT FREE
@@ -176,7 +186,9 @@ const Homepage = props => {
 
                 {
                     searchProjects(projects, searchInput).map(project => {
-                        return <ProjectListItem key={project.id} project={project} handleReminderModalOpen={() => handleReminderModalOpen(project.id)} />
+                        return screenWidth > 1400 ? 
+                            <ProjectListItem key={project.id} project={project} handleReminderModalOpen={() => handleReminderModalOpen(project.id)} />
+                            : <div key={project.id}>{project.name}</div>
                     })
                 }
 

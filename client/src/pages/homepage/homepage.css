@@ -1,6 +1,6 @@
 #projects-table {
     margin: 0 auto;
-    width: 1200px;
+    /* width: 1200px; */
 }
 
 #projects-table-header {
@@ -79,8 +79,12 @@
     height: 32px;
 }
 
+.navbar-toggler:focus {
+    box-shadow: none !important;
+}
+
 .navbar .custom-button {
-    margin: 0;
+    margin: 0 auto;
     width: auto;
     padding-right: 24px;
 }
@@ -88,4 +92,15 @@
 .navbar .custom-button img {
     height: 16px;
     margin-right: 12px;
+}
+
+/* md breakpoint */
+@media only screen and (min-width: 768px) {
+    .navbar-collapse {
+        justify-content: end;
+    }
+
+    .navbar .custom-button {
+        margin: 0;
+    }
 }
