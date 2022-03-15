@@ -118,15 +118,10 @@ const SubmitProjectModal = props => {
                             </Form.Group>
 
                             <Form.Group className='form-group'>
+                                <Form.Label>Mint Date</Form.Label>
                                 <Field
                                     name='mint_date'
-                                    onFocus={e => {
-                                        e.target.type = 'date';
-                                        return true;
-                                    }}
-                                    onBlur={e => {
-                                        if (!values.mint_date) e.target.type = ''
-                                    }}
+                                    type='date'
                                     placeholder='Mint date'
                                     isInvalid={!!errors.mint_date}
                                     as={Form.Control}

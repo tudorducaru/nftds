@@ -33,3 +33,7 @@
 .submit-project-modal .form-group {
     margin-bottom: 32px !important;
 }
+
+.submit-project-modal .form-label {
+    color: #6c757d;
+}
