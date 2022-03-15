@@ -1,5 +1,4 @@
 .submit-project-modal .modal-dialog {
-    width: 600px;
     max-width: 600px;
 }
 
@@ -27,9 +26,10 @@
 }
 
 .submit-project-modal .modal-body {
-    width: 70%;
+    width: 90%;
+    max-width: 420px;
 }
 
 .submit-project-modal .form-group {
-    margin-bottom: 16px !important;
+    margin-bottom: 32px !important;
 }

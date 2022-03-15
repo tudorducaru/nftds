@@ -72,7 +72,7 @@ const MintReminderModal = props => {
 
                             {isSubmitting && <Spinner className='custom-spinner' animation='border' />}
 
-                            <div className='d-flex mb-3'>
+                            <div className='mint-reminder-container mb-3'>
                                 <Form.Group className='form-group'>
                                     <Field
                                         name='email'
