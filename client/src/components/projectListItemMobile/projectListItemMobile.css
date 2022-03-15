@@ -55,3 +55,8 @@
     display: inline;
     color: #F7911D;
 }
+
+.stats-icon {
+    height: 16px;
+    margin-right: 6px;
+}

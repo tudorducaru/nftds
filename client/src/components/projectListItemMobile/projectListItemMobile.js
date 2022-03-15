@@ -8,6 +8,9 @@ import website_link_img from '../../website_link.png';
 import discord_link_img from '../../discord_link.png';
 import twitter_link_img from '../../twitter_link.png';
 import notification from '../../notification.png';
+import users_icon from '../../users.png';
+import users_online_icon from '../../users_online.png';
+import twitter_coloured from '../../twitter_coloured.png';
 
 const ProjectListItemMobile = props => {
 
@@ -51,17 +54,20 @@ const ProjectListItemMobile = props => {
                         <Row className='mb-2'>
 
                             {/* Member count */}
-                            <Col className='col-auto'>
+                            <Col className='col-auto d-flex align-items-center'>
+                                <img className='stats-icon' src={users_icon}></img>
                                 <p>{project.member_count.toLocaleString().replace(',', '.')}</p>
                             </Col>
 
                             {/* Online member count */}
-                            <Col className='col-auto online-member-count-mobile'>
+                            <Col className='col-auto d-flex align-items-center online-member-count-mobile'>
+                                <img className='stats-icon' src={users_online_icon}></img>
                                 <p>{project.online_count.toLocaleString().replace(',', '.')}</p>
                             </Col>
 
                             {/* Twitter followers count */}
-                            <Col className='col-auto twitter-followers-count-mobile'>
+                            <Col className='col-auto d-flex align-items-center twitter-followers-count-mobile'>
+                                <img className='stats-icon' src={twitter_coloured}></img>
                                 <p>{project.twitter_followers_count.toLocaleString().replace(',', '.')}</p>
                             </Col>
                         </Row>
