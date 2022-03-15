@@ -34,7 +34,7 @@ const ProjectListItemMobile = props => {
                         </a>
                     </Col>
 
-                    <Col>
+                    <Col className='ps-0'>
                         <Row className='mb-2'>
 
                             {/* Project Name */}
@@ -47,20 +47,20 @@ const ProjectListItemMobile = props => {
                             {/* Fakemeter */}
                             <Col className='col-auto gx-0'>
                                 {
-                                    project.fakemeter && <img className='verified-img' src={verified_img}></img>
+                                    project.fakemeter ? <img className='verified-img' src={verified_img}></img> : null
                                 }
                             </Col>
                         </Row>
                         <Row className='mb-2'>
 
                             {/* Member count */}
-                            <Col className='col-auto d-flex align-items-center'>
+                            <Col className='col-auto pe-0 d-flex align-items-center'>
                                 <img className='stats-icon' src={users_icon}></img>
                                 <p>{project.member_count.toLocaleString().replace(',', '.')}</p>
                             </Col>
 
                             {/* Online member count */}
-                            <Col className='col-auto d-flex align-items-center online-member-count-mobile'>
+                            <Col className='col-auto pe-0 d-flex align-items-center online-member-count-mobile'>
                                 <img className='stats-icon' src={users_online_icon}></img>
                                 <p>{project.online_count.toLocaleString().replace(',', '.')}</p>
                             </Col>
