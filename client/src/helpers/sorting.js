@@ -17,6 +17,8 @@ export const sortProjects = (projects, sort_field, sort_direction) => {
             a[sort_field] = a[sort_field] ? a[sort_field] : '';
             b[sort_field] = b[sort_field] ? b[sort_field] : '';
 
+            console.log(a[sort_field], b[sort_field]);
+
             if (sort_direction === 'ASC') {
                 return a[sort_field].localeCompare(b[sort_field]);
             } else {
