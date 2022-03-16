@@ -13,6 +13,8 @@ const ProjectListItem = props => {
 
     const project = props.project;
 
+    console.log(project);
+
     return (
         <Row className='project-list-item align-items-center'>
 
@@ -89,12 +91,12 @@ const ProjectListItem = props => {
 
             {/* Mint date */}
             <Col className='col-auto mint-date'>
-                <p>{format(parseISO(project.mint_date), 'dd MMM yyyy')}</p>
+                <p>{project.mint_date ? format(parseISO(project.mint_date), 'dd MMM yyyy') : 'TBA'}</p>
             </Col>
 
             {/* Mint price */}
             <Col className='col-auto mint-price'>
-                <p>{project.mint_amount} ETH</p>
+                <p>{project.mint_amount ? `${project.mint_amount} ETH` : 'TBA'}</p>
             </Col>
 
             {/* Mint reminder */}

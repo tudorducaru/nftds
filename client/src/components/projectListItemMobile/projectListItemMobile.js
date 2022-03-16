@@ -74,7 +74,7 @@ const ProjectListItemMobile = props => {
                         <Row>
                             <Col className='col-auto'>
                                 {/* Mint date */}
-                                <p>{format(parseISO(project.mint_date), 'dd MMM yyyy')}</p>
+                                <p>{project.mint_date ? format(parseISO(project.mint_date), 'dd MMM yyyy') : 'TBA'}</p>
                             </Col>
 
                             {/* Divider */}
@@ -84,7 +84,7 @@ const ProjectListItemMobile = props => {
 
                             {/* Mint price */}
                             <Col className='col-auto'>
-                                <p>{project.mint_amount} ETH</p>
+                                <p>{project.mint_amount ? `${project.mint_amount} ETH` : 'TBA'}</p>
                             </Col>
                         </Row>
                     </Col>

@@ -190,8 +190,6 @@ app.post('/admin/projects', (req, res, next) => {
         !req.body.name ||
         !req.body.invite_url ||
         req.body.fakemeter === 'undefined' ||
-        !req.body.mint_date ||
-        !req.body.mint_amount ||
         !req.body.website_link ||
         !req.body.twitter_link
     ) {
@@ -211,8 +209,8 @@ app.post('/admin/projects', (req, res, next) => {
     const name = req.body.name;
     const invite_url = req.body.invite_url;
     const fakemeter = req.body.fakemeter;
-    const mint_date = req.body.mint_date;
-    const mint_amount = req.body.mint_amount;
+    const mint_date = req.body.mint_date ? req.body.mint_date : undefined;
+    const mint_amount = req.body.mint_amount ? req.body.mint_amount : 0; 
     const website_link = req.body.website_link;
     const twitter_link = req.body.twitter_link;
 
@@ -296,8 +294,6 @@ app.put('/admin/projects/:projectID', (req, res, next) => {
         !req.body.name ||
         !req.body.invite_url ||
         req.body.fakemeter === 'undefined' ||
-        !req.body.mint_date ||
-        !req.body.mint_amount ||
         !req.body.website_link ||
         !req.body.twitter_link
     ) {
@@ -309,8 +305,8 @@ app.put('/admin/projects/:projectID', (req, res, next) => {
     const name = req.body.name;
     const invite_url = req.body.invite_url;
     const fakemeter = req.body.fakemeter;
-    const mint_date = req.body.mint_date;
-    const mint_amount = req.body.mint_amount;
+    const mint_date = req.body.mint_date ? req.body.mint_date : undefined;
+    const mint_amount = req.body.mint_amount ? req.body.mint_amount : undefined;
     const website_link = req.body.website_link;
     const twitter_link = req.body.twitter_link;
 
@@ -339,8 +335,6 @@ app.post('/submit-project', (req, res, next) => {
         !req.body ||
         !req.body.name ||
         !req.body.invite_url ||
-        !req.body.mint_date ||
-        !req.body.mint_amount ||
         !req.body.website_link ||
         !req.body.twitter_link ||
         !req.body.owner_email
@@ -360,8 +354,8 @@ app.post('/submit-project', (req, res, next) => {
 
     const name = req.body.name;
     const invite_url = req.body.invite_url;
-    const mint_date = req.body.mint_date;
-    const mint_amount = req.body.mint_amount;
+    const mint_date = req.body.mint_date ? req.body.mint_date : undefined;
+    const mint_amount = req.body.mint_amount ? req.body.mint_amount : undefined;
     const website_link = req.body.website_link;
     const twitter_link = req.body.twitter_link;
     const owner_email = req.body.owner_email;

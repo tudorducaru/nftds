@@ -29,17 +29,15 @@ const NewProject = () => {
                     invite_url: '',
                     fakemeter: false,
                     mint_date: '',
-                    mint_amount: 0,
+                    mint_amount: '',
                     website_link: '',
                     twitter_link: ''
                 }}
                 validationSchema={yup.object({
                     name: yup.string().required('Please enter project name'),
                     invite_url: yup.string().required('Please enter invite URL'),
-                    mint_date: yup.string().required('Please enter mint date'),
-                    mint_amount: yup.number()
-                        .required('Please enter the mint price')
-                        .moreThan(0, 'Mint price must be greater than 0'),
+                    mint_date: yup.string(),
+                    mint_amount: yup.number('Mint amount is not a number'),
                     website_link: yup.string().required('Please enter website link'),
                     twitter_link: yup.string().required('Please enter Twitter link')
                 })}
