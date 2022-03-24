@@ -68,7 +68,7 @@ const ProjectListItemMobile = props => {
                             {/* Twitter followers count */}
                             <Col className='col-auto d-flex align-items-center twitter-followers-count-mobile'>
                                 <img className='stats-icon' src={twitter_coloured}></img>
-                                <p>{project.twitter_followers_count.toLocaleString().replace(',', '.')}</p>
+                                <p>{project.twitter_followers_count ? project.twitter_followers_count.toLocaleString().replace(',', '.') : '-'}</p>
                             </Col>
                         </Row>
                         <Row>

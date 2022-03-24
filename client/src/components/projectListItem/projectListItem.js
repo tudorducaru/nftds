@@ -48,7 +48,7 @@ const ProjectListItem = props => {
 
             {/* Twitter Followers Count */}
             <Col className='col-auto twitter-followers-count'>
-                <p>{project.twitter_followers_count.toLocaleString().replace(',', '.')}</p>
+                <p>{project.twitter_followers_count ? project.twitter_followers_count.toLocaleString().replace(',', '.') : '-'}</p>
             </Col>
 
             {/* Links */}
