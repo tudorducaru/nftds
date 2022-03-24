@@ -18,22 +18,18 @@ const ProjectListItem = props => {
 
             {/* Logo */}
             <Col className='col-auto project-logo'>
-                <a href={project.invite_url}>
-                    <div className='logo-container'>
-                        {
-                            project.logo_url ?
-                                <img src={project.logo_url}></img> :
-                                <div></div>
-                        }
-                    </div>
-                </a>
+                <div className='logo-container' onClick={() => window.open(project.invite_url)}>
+                    {
+                        project.logo_url ?
+                            <img src={project.logo_url}></img> :
+                            <div></div>
+                    }
+                </div>
             </Col>
 
             {/* Name */}
-            <Col className='project-name'>
-                <a href={project.invite_url}>
-                    <p>{project.name}</p>
-                </a>
+            <Col className='project-name d-flex align-items-center' onClick={() => window.open(project.invite_url)}>
+                <p>{project.name}</p>
             </Col>
 
             {/* Member Count */}
@@ -55,19 +51,25 @@ const ProjectListItem = props => {
             <Col className='col-auto links'>
                 <Row className='flex-nowrap'>
                     <Col className='col-auto gx-3'>
-                        <a href={project.website_link}>
-                            <img className='link-img' src={website_link_img}></img>
-                        </a>
+                        <img
+                            className='link-img'
+                            src={website_link_img}
+                            onClick={() => window.open(project.website_link)}
+                        ></img>
                     </Col>
                     <Col className='col-auto gx-3'>
-                        <a href={project.invite_url}>
-                            <img className='link-img' src={discord_link_img}></img>
-                        </a>
+                        <img
+                            className='link-img'
+                            src={discord_link_img}
+                            onClick={() => window.open(project.invite_url)}
+                        ></img>
                     </Col>
                     <Col className='col-auto gx-3'>
-                        <a href={project.twitter_link}>
-                            <img className='link-img' src={twitter_link_img}></img>
-                        </a>
+                        <img
+                            className='link-img'
+                            src={twitter_link_img}
+                            onClick={() => window.open(project.twitter_link)}
+                        ></img>
                     </Col>
                 </Row>
             </Col>

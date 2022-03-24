@@ -23,25 +23,21 @@ const ProjectListItemMobile = props => {
 
                     {/* Logo */}
                     <Col className='col-auto'>
-                        <a href={project.invite_url}>
-                            <div className='logo-container-mobile'>
-                                {
-                                    project.logo_url ?
-                                        <img src={project.logo_url}></img> :
-                                        <div></div>
-                                }
-                            </div>
-                        </a>
+                        <div className='logo-container-mobile' onClick={() => window.open(project.invite_url)}>
+                            {
+                                project.logo_url ?
+                                    <img src={project.logo_url}></img> :
+                                    <div></div>
+                            }
+                        </div>
                     </Col>
 
                     <Col className='ps-0'>
                         <Row className='mb-2'>
 
                             {/* Project Name */}
-                            <Col className='col-auto project-name-mobile'>
-                                <a href={project.invite_url}>
-                                    <p>{project.name}</p>
-                                </a>
+                            <Col className='col-auto project-name-mobile' onClick={() => window.open(project.invite_url)}>
+                                <p>{project.name}</p>
                             </Col>
 
                             {/* Fakemeter */}
@@ -92,19 +88,25 @@ const ProjectListItemMobile = props => {
                 <Row className='align-items-center justify-content-center'>
                     {/* Links */}
                     <Col className='col-auto gy-3'>
-                        <a href={project.website_link}>
-                            <img className='link-img-mobile' src={website_link_img}></img>
-                        </a>
+                        <img
+                            className='link-img-mobile'
+                            src={website_link_img}
+                            onClick={() => window.open(project.website_link)}
+                        ></img>
                     </Col>
                     <Col className='col-auto gy-3'>
-                        <a href={project.twitter_link}>
-                            <img className='link-img-mobile' src={twitter_link_img}></img>
-                        </a>
+                        <img
+                            className='link-img-mobile'
+                            src={twitter_link_img}
+                            onClick={() => window.open(project.twitter_link)}
+                        ></img>
                     </Col>
                     <Col className='col-auto gy-3'>
-                        <a href={project.invite_url}>
-                            <img className='link-img-mobile' src={discord_link_img}></img>
-                        </a>
+                        <img
+                            className='link-img-mobile'
+                            src={discord_link_img}
+                            onClick={() => window.open(project.invite_url)}
+                        ></img>
                     </Col>
 
                     {/* Mint reminder */}
