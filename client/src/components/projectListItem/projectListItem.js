@@ -13,8 +13,6 @@ const ProjectListItem = props => {
 
     const project = props.project;
 
-    console.log(project);
-
     return (
         <Row className='project-list-item align-items-center'>
 
@@ -40,12 +38,12 @@ const ProjectListItem = props => {
 
             {/* Member Count */}
             <Col className='col-auto member-count'>
-                <p>{project.member_count.toLocaleString().replace(',', '.')}</p>
+                <p>{project.member_count ? project.member_count.toLocaleString().replace(',', '.') : '-'}</p>
             </Col>
 
             {/* Online Member Count */}
             <Col className='col-auto online-member-count'>
-                <p>{project.online_count.toLocaleString().replace(',', '.')}</p>
+                <p>{project.online_count ? project.online_count.toLocaleString().replace(',', '.') : '-'}</p>
             </Col>
 
             {/* Twitter Followers Count */}

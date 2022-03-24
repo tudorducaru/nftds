@@ -173,7 +173,7 @@ class DataService {
 
                 // Make a request to the Discord API to get member counts
                 const discordResponse = await axios.get(
-                    ` https://discord.com/api/v9/invites/${inviteCode}?with_counts=true`
+                    `https://discord.com/api/v9/invites/${inviteCode}?with_counts=true`
                 );
 
                 // Create source of the project logo based on id and icon
@@ -190,12 +190,19 @@ class DataService {
                     logo_url,
                     'member_count': discordResponse.data.approximate_member_count,
                     'online_count': discordResponse.data.approximate_presence_count,
-                })
+                });
 
             } catch (err) {
 
                 // Failure to get member counts from discord
-                throw err.response.data;
+                console.log(`Error getting discord member counts for ${project.name} with invite code ${inviteCode}`)
+
+                // Add the project to the member counts array
+                memberCounts.push({
+                    ...project,
+                    'member_count': 0,
+                    'online_count': 0,
+                });
             }
 
         }))

@@ -56,13 +56,13 @@ const ProjectListItemMobile = props => {
                             {/* Member count */}
                             <Col className='col-auto pe-0 d-flex align-items-center'>
                                 <img className='stats-icon' src={users_icon}></img>
-                                <p>{project.member_count.toLocaleString().replace(',', '.')}</p>
+                                <p>{project.member_count ? project.member_count.toLocaleString().replace(',', '.') : '-'}</p>
                             </Col>
 
                             {/* Online member count */}
                             <Col className='col-auto pe-0 d-flex align-items-center online-member-count-mobile'>
                                 <img className='stats-icon' src={users_online_icon}></img>
-                                <p>{project.online_count.toLocaleString().replace(',', '.')}</p>
+                                <p>{project.online_count ? project.online_count.toLocaleString().replace(',', '.') : '-'}</p>
                             </Col>
 
                             {/* Twitter followers count */}
