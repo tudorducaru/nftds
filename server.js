@@ -210,7 +210,7 @@ app.post('/admin/projects', (req, res, next) => {
     const invite_url = req.body.invite_url;
     const fakemeter = req.body.fakemeter;
     const mint_date = req.body.mint_date ? req.body.mint_date : undefined;
-    const mint_amount = req.body.mint_amount ? req.body.mint_amount : 0; 
+    const mint_amount = req.body.mint_amount ? req.body.mint_amount : undefined; 
     const mint_currency = req.body.mint_currency ? req.body.mint_currency : undefined;
     const website_link = req.body.website_link;
     const twitter_link = req.body.twitter_link;
@@ -306,13 +306,14 @@ app.put('/admin/projects/:projectID', (req, res, next) => {
     const fakemeter = req.body.fakemeter;
     const mint_date = req.body.mint_date ? req.body.mint_date : undefined;
     const mint_amount = req.body.mint_amount ? req.body.mint_amount : undefined;
+    const mint_currency = req.body.mint_currency ? req.body.mint_currency : undefined;
     const website_link = req.body.website_link;
     const twitter_link = req.body.twitter_link;
 
     // Update the row in the database
     dbConnection.query(
-        'UPDATE projects SET name = ?, invite_url = ?, fakemeter = ?, mint_date = ?, mint_amount = ?, website_link = ?, twitter_link = ? WHERE id = ?',
-        [name, invite_url, fakemeter, mint_date, mint_amount, website_link, twitter_link, id],
+        'UPDATE projects SET name = ?, invite_url = ?, fakemeter = ?, mint_date = ?, mint_amount = ?, mint_currency = ?, website_link = ?, twitter_link = ? WHERE id = ?',
+        [name, invite_url, fakemeter, mint_date, mint_amount, mint_currency, website_link, twitter_link, id],
         (err, results) => {
 
             // Check if there were any errors

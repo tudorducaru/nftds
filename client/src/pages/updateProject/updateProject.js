@@ -13,6 +13,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import { MdDeleteOutline } from 'react-icons/md';
+import CurrencyDropdown from '../../components/currencyDropdown/currencyDropdown';
 
 import { useParams } from 'react-router-dom';
 
@@ -20,7 +21,7 @@ const UpdateProject = () => {
 
     // Keep track of any possible server errors
     const [serverError, setServerError] = useState();
-    
+
     // Get the project id from the query parameters
     const { projectID } = useParams();
 
@@ -72,9 +73,9 @@ const UpdateProject = () => {
         <Container className='project-form-container'>
 
             <Modal show={showModal} onHide={handleModalClose}>
-                <Modal.Header closeButton closeVariant='white'/>
+                <Modal.Header closeButton closeVariant='white' />
                 <Modal.Body>
-                    { modalSpinner && <Spinner className='custom-spinner' animation='border' /> }
+                    {modalSpinner && <Spinner className='custom-spinner' animation='border' />}
                     <p>Are you sure you want to delete this project?</p>
                 </Modal.Body>
                 <Modal.Footer>
@@ -104,6 +105,7 @@ const UpdateProject = () => {
                     fakemeter: project ? (project.fakemeter ? true : false) : false,
                     mint_date: project && project.mint_date ? project.mint_date : '',
                     mint_amount: project && project.mint_amount ? project.mint_amount : '',
+                    mint_currency: project && project.mint_currency ? project.mint_currency : '',
                     website_link: project ? project.website_link : '',
                     twitter_link: project ? project.twitter_link : ''
                 }}
@@ -112,6 +114,7 @@ const UpdateProject = () => {
                     invite_url: yup.string().required('Please enter invite URL'),
                     mint_date: yup.string(),
                     mint_amount: yup.number('Mint amount is not a number').min(0, 'Mint amount must be greater than 0'),
+                    mint_currency: yup.string(),
                     website_link: yup.string().required('Please enter website link'),
                     twitter_link: yup.string().required('Please enter Twitter link')
                 })}
@@ -119,7 +122,7 @@ const UpdateProject = () => {
                 validateOnChange={false}
                 enableReinitialize
                 onSubmit={(values, { setSubmitting }) => {
-                    
+
                     DataService.updateProject(projectID, values)
                         .then(() => {
 
@@ -138,13 +141,14 @@ const UpdateProject = () => {
                 {({
                     isSubmitting,
                     handleSubmit,
+                    setFieldValue,
                     errors
                 }) => (
                     <Form onSubmit={handleSubmit}>
 
-                        { serverError && <Alert variant='danger'>{serverError}</Alert> }
+                        {serverError && <Alert variant='danger'>{serverError}</Alert>}
 
-                        { isSubmitting && <Spinner className='custom-spinner' animation='border' /> }
+                        {isSubmitting && <Spinner className='custom-spinner' animation='border' />}
 
                         <Form.Group className='form-group'>
                             <Form.Label>Project Name</Form.Label>
@@ -206,6 +210,20 @@ const UpdateProject = () => {
                                 placeholder='Enter mint amount...'
                                 isInvalid={!!errors.mint_amount}
                                 as={Form.Control}
+                            />
+                            <Form.Control.Feedback type='invalid'>
+                                {errors.mint_amount}
+                            </Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group className='form-group'>
+                            <Form.Label>Mint Currency</Form.Label>
+                            <Field
+                                name='mint_currency'
+                                type='text'
+                                isInvalid={!!errors.mint_currency}
+                                setFieldValue={setFieldValue}
+                                as={CurrencyDropdown}
                             />
                             <Form.Control.Feedback type='invalid'>
                                 {errors.mint_amount}
