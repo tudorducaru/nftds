@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 import DataService from '../../services/dataService';
+import CurrencyDropdown from '../currencyDropdown/currencyDropdown';
 
 const SubmitProjectModal = props => {
 
@@ -38,6 +39,7 @@ const SubmitProjectModal = props => {
                         fakemeter: false,
                         mint_date: '',
                         mint_amount: '',
+                        mint_currency: '',
                         website_link: '',
                         twitter_link: ''
                     }}
@@ -47,6 +49,7 @@ const SubmitProjectModal = props => {
                         invite_url: yup.string().required('Please enter invite URL'),
                         mint_date: yup.string(),
                         mint_amount: yup.number('Mint amount is not a number'),
+                        mint_currency: yup.string(),
                         website_link: yup.string().required('Please enter website link'),
                         twitter_link: yup.string().required('Please enter Twitter link')
                     })}
@@ -65,9 +68,9 @@ const SubmitProjectModal = props => {
                     }}
                 >
                     {({
-                        values,
                         isSubmitting,
                         handleSubmit,
+                        setFieldValue,
                         errors
                     }) => (
                         <Form onSubmit={handleSubmit}>
@@ -137,6 +140,19 @@ const SubmitProjectModal = props => {
                                     placeholder='Mint amount (ETH)'
                                     isInvalid={!!errors.mint_amount}
                                     as={Form.Control}
+                                />
+                                <Form.Control.Feedback type='invalid'>
+                                    {errors.mint_amount}
+                                </Form.Control.Feedback>
+                            </Form.Group>
+
+                            <Form.Group className='form-group'>
+                                <Field
+                                    name='mint_currency'
+                                    type='text'
+                                    isInvalid={!!errors.mint_currency}
+                                    setFieldValue={setFieldValue}
+                                    as={CurrencyDropdown}
                                 />
                                 <Form.Control.Feedback type='invalid'>
                                     {errors.mint_amount}

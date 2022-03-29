@@ -356,6 +356,7 @@ app.post('/submit-project', (req, res, next) => {
     const invite_url = req.body.invite_url;
     const mint_date = req.body.mint_date ? req.body.mint_date : undefined;
     const mint_amount = req.body.mint_amount ? req.body.mint_amount : undefined;
+    const mint_currency = req.body.mint_currency ? req.body.mint_currency : undefined;
     const website_link = req.body.website_link;
     const twitter_link = req.body.twitter_link;
     const owner_email = req.body.owner_email;
@@ -365,8 +366,8 @@ app.post('/submit-project', (req, res, next) => {
 
     // Insert the project into the database
     dbConnection.query(
-        'INSERT INTO project_requests VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [id, name, invite_url, mint_date, mint_amount, website_link, twitter_link, created_at, owner_email],
+        'INSERT INTO project_requests VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [id, name, invite_url, mint_date, mint_amount, mint_currency, website_link, twitter_link, created_at, owner_email],
         (err, results) => {
 
             // Check if there were any errors
