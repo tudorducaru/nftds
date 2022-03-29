@@ -80,7 +80,7 @@ const ProjectListItemMobile = props => {
 
                             {/* Mint price */}
                             <Col className='col-auto'>
-                                <p>{project.mint_amount ? `${project.mint_amount} ETH` : 'TBA'}</p>
+                                <p>{project.mint_amount && project.mint_currency ? `${project.mint_amount} ${project.mint_currency}` : 'TBA'}</p>
                             </Col>
                         </Row>
                     </Col>

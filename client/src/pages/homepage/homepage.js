@@ -112,7 +112,7 @@ const Homepage = props => {
                 </Container>
             </Navbar>
 
-            <Container id='projects-table' fluid>
+            <Container id='projects-table' className='mb-5' fluid>
 
                 <div className='search-div'>
                     <input

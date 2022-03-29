@@ -96,7 +96,7 @@ const ProjectListItem = props => {
 
             {/* Mint price */}
             <Col className='col-auto mint-price'>
-                <p>{project.mint_amount ? `${project.mint_amount} ETH` : 'TBA'}</p>
+                <p>{project.mint_amount && project.mint_currency ? `${project.mint_amount} ${project.mint_currency}` : 'TBA'}</p>
             </Col>
 
             {/* Mint reminder */}
