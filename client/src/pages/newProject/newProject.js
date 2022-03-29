@@ -9,6 +9,7 @@ import DataService from '../../services/dataService';
 import { useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 import { ProjectsContext } from '../../contexts/projectsContext';
+import CurrencyDropdown from '../../components/currencyDropdown/currencyDropdown';
 
 const NewProject = () => {
 
@@ -30,6 +31,7 @@ const NewProject = () => {
                     fakemeter: false,
                     mint_date: '',
                     mint_amount: '',
+                    mint_currency: '',
                     website_link: '',
                     twitter_link: ''
                 }}
@@ -38,6 +40,7 @@ const NewProject = () => {
                     invite_url: yup.string().required('Please enter invite URL'),
                     mint_date: yup.string(),
                     mint_amount: yup.number('Mint amount is not a number'),
+                    mint_currency: yup.string(),
                     website_link: yup.string().required('Please enter website link'),
                     twitter_link: yup.string().required('Please enter Twitter link')
                 })}
@@ -59,20 +62,21 @@ const NewProject = () => {
 
                             // Display the error message
                             setServerError(errorMessage);
-                        }); 
+                        });
 
                 }}
             >
                 {({
                     isSubmitting,
                     handleSubmit,
+                    setFieldValue,
                     errors
                 }) => (
                     <Form onSubmit={handleSubmit}>
 
-                        { serverError && <Alert variant='danger'>{serverError}</Alert> }
+                        {serverError && <Alert variant='danger'>{serverError}</Alert>}
 
-                        { isSubmitting && <Spinner className='custom-spinner' animation='border' /> }
+                        {isSubmitting && <Spinner className='custom-spinner' animation='border' />}
 
                         <Form.Group className='form-group'>
                             <Form.Label>Project Name</Form.Label>
@@ -134,6 +138,20 @@ const NewProject = () => {
                                 placeholder='Enter mint amount...'
                                 isInvalid={!!errors.mint_amount}
                                 as={Form.Control}
+                            />
+                            <Form.Control.Feedback type='invalid'>
+                                {errors.mint_amount}
+                            </Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group className='form-group'>
+                            <Form.Label>Mint Currency</Form.Label>
+                            <Field
+                                name='mint_currency'
+                                type='text'
+                                isInvalid={!!errors.mint_currency}
+                                setFieldValue={setFieldValue}
+                                as={CurrencyDropdown}
                             />
                             <Form.Control.Feedback type='invalid'>
                                 {errors.mint_amount}

@@ -1,0 +1,23 @@
+.currency-dropdown-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    cursor: default;
+}
+
+.currency-dropdown-toggle .dropdown-placeholder {
+    color: #6c757d;
+    display: inline;
+}
+
+.currency-dropdown-toggle::after {
+    margin-right: 6px;
+}
+
+.dropdown.show .currency-dropdown-toggle {
+    box-shadow: 0 0 0 2px rgb(110 110 238 / 50%);
+}
+
+.currency-dropdown-toggle + .dropdown-menu {
+    transform: translate3d(16px, 50px, 0px) !important;
+}
