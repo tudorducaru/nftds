@@ -46,7 +46,7 @@ const setMintReminders = dbConnection => {
         `, [dateString], (err, results) => {
 
             // Check for errors
-            if (err) console.log('Error sending mint reminder emails', e);
+            if (err) console.log('Error sending mint reminder emails', err);
 
             // Get the email transporter 
             const transporter = getEmailTransporter();

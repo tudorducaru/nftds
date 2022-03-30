@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const getTwitterFollowers = require('./apis/twitter_api');
 const setMintReminders = require('./cronJobs/mintReminders');
+const deleteMintedProjects = require('./cronJobs/deleteMintedProjects');
 
 const express = require('express');
 const app = express();
@@ -35,6 +36,9 @@ const dbConnection = require('./db.js');
 
 // Send mint reminder emails
 setMintReminders(dbConnection);
+
+// Delete minted projects
+deleteMintedProjects(dbConnection);
 
 // Parse incoming cookies
 const cookieParser = require('cookie-parser');
