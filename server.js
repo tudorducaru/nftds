@@ -10,6 +10,8 @@ const deleteMintedProjects = require('./cronJobs/deleteMintedProjects');
 const express = require('express');
 const app = express();
 
+const { Client } = require('discord.js');
+
 // Import email router
 const emailRouter = require('./emailRouter');
 
@@ -442,6 +444,44 @@ app.get('/admin/csrfToken', (req, res, next) => {
     */
     res.cookie('XSRF-TOKEN', req.csrfToken(), { secure: true });
     return res.send();
+
+});
+
+app.get('/getMemberCounts', (req, res, next) => {
+
+    // Query the database
+    dbConnection.query('SELECT * FROM projects', async (err, projects) => {
+
+        // Check if there were any errors
+        if (err) return res.status(500).send('Internal server error');
+
+        const client = new Client({ intents: [Intents.FLAGS.GUILDS]});
+        await client.login('OTU5ODU5NTc5Nzk2MTk3NDE4.YkiA5Q.xdTpFWbdRBOnXfv6V0VBhm0ZjaA');
+        
+        for (let i = 0; i <= projects.length; i+=50) {
+            projectsChunk = projects.slice(i, i + 50);
+
+            await Promise.all(projectsChunk.map(project => {
+
+                try {
+
+                    const invite = await client.fetchInvite(project.invite_url);
+                    console.log(`${invite.code} - ${invite.memberCount}`);
+
+                } catch (err) {
+
+                    console.log(err);
+
+                }
+
+            }));
+
+            await new Promise(r => setTimeout(r, 2000));
+        }
+
+        return res.send();
+
+    });
 
 });
 
