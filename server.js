@@ -461,7 +461,7 @@ app.get('/getMemberCounts', (req, res, next) => {
         for (let i = 0; i <= projects.length; i+=50) {
             projectsChunk = projects.slice(i, i + 50);
 
-            await Promise.all(projectsChunk.map(project => {
+            await Promise.all(projectsChunk.map(async project => {
 
                 try {
 
