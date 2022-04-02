@@ -10,7 +10,7 @@ const deleteMintedProjects = require('./cronJobs/deleteMintedProjects');
 const express = require('express');
 const app = express();
 
-const { Client } = require('discord.js');
+const { Client, Intents } = require('discord.js');
 
 // Import email router
 const emailRouter = require('./emailRouter');
