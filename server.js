@@ -216,7 +216,7 @@ app.post('/admin/projects', (req, res, next) => {
     const invite_url = req.body.invite_url;
     const fakemeter = req.body.fakemeter;
     const mint_date = req.body.mint_date ? req.body.mint_date : undefined;
-    const mint_amount = req.body.mint_amount ? req.body.mint_amount : undefined; 
+    const mint_amount = req.body.mint_amount ? req.body.mint_amount : undefined;
     const mint_currency = req.body.mint_currency ? req.body.mint_currency : undefined;
     const website_link = req.body.website_link;
     const twitter_link = req.body.twitter_link;
@@ -455,28 +455,31 @@ app.get('/getMemberCounts', (req, res, next) => {
         // Check if there were any errors
         if (err) return res.status(500).send('Internal server error');
 
-        const client = new Client({ intents: [Intents.FLAGS.GUILDS]});
+        const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
         await client.login('OTU5ODU5NTc5Nzk2MTk3NDE4.YkiA5Q.xdTpFWbdRBOnXfv6V0VBhm0ZjaA');
-        
-        for (let i = 0; i <= projects.length; i+=50) {
-            projectsChunk = projects.slice(i, i + 50);
 
-            await Promise.all(projectsChunk.map(async project => {
+        for (let j = 0; j <= 2; j++) {
 
-                try {
+            for (let i = 0; i <= projects.length; i += 50) {
+                projectsChunk = projects.slice(i, i + 50);
 
-                    const invite = await client.fetchInvite(project.invite_url);
-                    console.log(`${invite.code} - ${invite.memberCount}`);
+                await Promise.all(projectsChunk.map(async project => {
 
-                } catch (err) {
+                    try {
 
-                    console.log(err);
+                        const invite = await client.fetchInvite(project.invite_url);
+                        console.log(`${invite.code} - ${invite.memberCount}`);
 
-                }
+                    } catch (err) {
 
-            }));
+                        console.log(`Error: ${err.httpStatus}`);
 
-            await new Promise(r => setTimeout(r, 2000));
+                    }
+
+                }));
+
+                await new Promise(r => setTimeout(r, 2000));
+            }
         }
 
         return res.send();
