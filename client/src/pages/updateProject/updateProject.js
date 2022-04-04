@@ -116,7 +116,9 @@ const UpdateProject = () => {
                     mint_amount: yup.number('Mint amount is not a number').min(0, 'Mint amount must be greater than 0'),
                     mint_currency: yup.string(),
                     website_link: yup.string().required('Please enter website link'),
-                    twitter_link: yup.string().required('Please enter Twitter link')
+                    twitter_link: yup.string()
+                        .required('Please enter Twitter link')
+                        .matches(/^https:\/\/twitter\.com\/\w+$/, 'Invalid format. Please check the Twitter link')
                 })}
                 validateOnBlur={false}
                 validateOnChange={false}
