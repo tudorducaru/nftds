@@ -34,17 +34,17 @@ const ProjectListItem = props => {
 
             {/* Member Count */}
             <Col className='col-auto member-count'>
-                <p>{project.member_count ? project.member_count.toLocaleString().replace(',', '.') : '-'}</p>
+                <p>{project.discord_members ? project.discord_members.toLocaleString().replace(',', '.') : '-'}</p>
             </Col>
 
             {/* Online Member Count */}
             <Col className='col-auto online-member-count'>
-                <p>{project.online_count ? project.online_count.toLocaleString().replace(',', '.') : '-'}</p>
+                <p>{project.discord_online_members ? project.discord_online_members.toLocaleString().replace(',', '.') : '-'}</p>
             </Col>
 
             {/* Twitter Followers Count */}
             <Col className='col-auto twitter-followers-count'>
-                <p>{project.twitter_followers_count ? project.twitter_followers_count.toLocaleString().replace(',', '.') : '-'}</p>
+                <p>{project.twitter_followers ? project.twitter_followers.toLocaleString().replace(',', '.') : '-'}</p>
             </Col>
 
             {/* Links */}

@@ -50,11 +50,11 @@ export const getLabel = sorting_field => {
             return 'Project name';
         case 'created_at':
             return 'Standard';
-        case 'member_count':
+        case 'discord_members':
             return 'Total users';
-        case 'online_count':
+        case 'discord_online_members':
             return 'Online users';
-        case 'twitter_followers_count':
+        case 'twitter_followers':
             return 'Twitter followers';
         case 'fakemeter':
             return 'Fakemeter';

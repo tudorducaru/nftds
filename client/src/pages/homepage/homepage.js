@@ -27,7 +27,7 @@ const Homepage = props => {
     const [projects, setProjects] = useState([]);
 
     // Sorting options
-    const [sortingField, setSortingField] = useState('member_count');
+    const [sortingField, setSortingField] = useState('discord_members');
     const [sortingDirection, setSortingDirection] = useState('DESC');
 
     // Filter by name
@@ -60,11 +60,11 @@ const Homepage = props => {
     useEffect(() => {
 
         // Get member counts for all projects in the database
-        DataService.getMemberCounts()
+        DataService.getProjects()
             .then(data => {
 
                 // Sort the projects by creation time
-                sortProjects(data, 'member_count', 'DESC');
+                sortProjects(data, 'discord_members', 'DESC');
 
                 // Update state
                 setProjects(data);
@@ -134,9 +134,9 @@ const Homepage = props => {
                                 <DropdownButton id='sort-dropdown-button' title={getLabel(sortingField)}>
                                     <Dropdown.Item onClick={() => setSortingField('name')}>Name</Dropdown.Item>
                                     <Dropdown.Item onClick={() => setSortingField('created_at')}>Date added</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => setSortingField('member_count')}>Total users</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => setSortingField('online_count')}>Online users</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => setSortingField('twitter_followers_count')}>Twitter followers</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSortingField('discord_members')}>Total users</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSortingField('discord_online_members')}>Online users</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSortingField('twitter_followers')}>Twitter followers</Dropdown.Item>
                                     <Dropdown.Item onClick={() => setSortingField('fakemeter')}>Fakemeter</Dropdown.Item>
                                     <Dropdown.Item onClick={() => setSortingField('mint_date')}>Mint date</Dropdown.Item>
                                     <Dropdown.Item onClick={() => setSortingField('mint_amount')}>Mint price</Dropdown.Item>

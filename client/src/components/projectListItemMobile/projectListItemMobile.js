@@ -52,19 +52,19 @@ const ProjectListItemMobile = props => {
                             {/* Member count */}
                             <Col className='col-auto pe-0 d-flex align-items-center'>
                                 <img className='stats-icon' src={users_icon}></img>
-                                <p>{project.member_count ? project.member_count.toLocaleString().replace(',', '.') : '-'}</p>
+                                <p>{project.discord_members ? project.discord_members.toLocaleString().replace(',', '.') : '-'}</p>
                             </Col>
 
                             {/* Online member count */}
                             <Col className='col-auto pe-0 d-flex align-items-center online-member-count-mobile'>
                                 <img className='stats-icon' src={users_online_icon}></img>
-                                <p>{project.online_count ? project.online_count.toLocaleString().replace(',', '.') : '-'}</p>
+                                <p>{project.discord_online_members ? project.discord_online_members.toLocaleString().replace(',', '.') : '-'}</p>
                             </Col>
 
                             {/* Twitter followers count */}
                             <Col className='col-auto d-flex align-items-center twitter-followers-count-mobile'>
                                 <img className='stats-icon' src={twitter_coloured}></img>
-                                <p>{project.twitter_followers_count ? project.twitter_followers_count.toLocaleString().replace(',', '.') : '-'}</p>
+                                <p>{project.twitter_followers ? project.twitter_followers.toLocaleString().replace(',', '.') : '-'}</p>
                             </Col>
                         </Row>
                         <Row>

@@ -3,14 +3,21 @@ const jwt = require('jsonwebtoken');
 const uuid = require('uuid');
 const cors = require('cors');
 
-const getTwitterFollowers = require('./apis/twitter_api');
+// Configure environment variables
+require('dotenv').config();
+
+// Connect to MySQL database
+const { dbConnection, getDbConnection } = require('./db.js');
+getDbConnection();
+
+const updateTwitterFollowers = require('./apis/twitter_api');
+const updateDiscordCounts = require('./apis/discord_api');
+
 const setMintReminders = require('./cronJobs/mintReminders');
 const deleteMintedProjects = require('./cronJobs/deleteMintedProjects');
 
 const express = require('express');
 const app = express();
-
-const { Client, Intents } = require('discord.js');
 
 // Import email router
 const emailRouter = require('./emailRouter');
@@ -29,12 +36,6 @@ app.use((req, res, next) => {
 // Serve the static assets from the build folder
 const path = require('path');
 app.use(express.static(path.resolve(__dirname, 'client/build')));
-
-// Configure environment variables
-require('dotenv').config();
-
-// Connect to MySQL database
-const dbConnection = require('./db.js');
 
 // Send mint reminder emails
 setMintReminders(dbConnection);
@@ -170,17 +171,16 @@ app.get('/admin/verifyUser', (req, res, next) => {
 app.get('/projects', (req, res, next) => {
 
     // Query the database
-    dbConnection.query('SELECT * FROM projects', async (err, projects) => {
+    dbConnection.query(
+        'SELECT * FROM projects JOIN project_stats ON projects.id = project_stats.project_id',
+        async (err, projects) => {
 
-        // Check if there were any errors
-        if (err) return res.status(500).send('Internal server error');
+            // Check if there were any errors
+            if (err) return res.status(500).send('Internal server error');
 
-        // Get Twitter follower counts for the projects
-        await getTwitterFollowers(projects);
+            return res.send(projects);
 
-        return res.send(projects);
-
-    });
+        });
 
 });
 
@@ -447,44 +447,14 @@ app.get('/admin/csrfToken', (req, res, next) => {
 
 });
 
-app.get('/getMemberCounts', (req, res, next) => {
+app.get('/updateProjectStats', async (req, res, next) => {
 
-    // Query the database
-    dbConnection.query('SELECT * FROM projects', async (err, projects) => {
-
-        // Check if there were any errors
-        if (err) return res.status(500).send('Internal server error');
-
-        const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-        await client.login('OTU5ODU5NTc5Nzk2MTk3NDE4.YkiA5Q.xdTpFWbdRBOnXfv6V0VBhm0ZjaA');
-
-        for (let j = 0; j <= 2; j++) {
-
-            for (let i = 0; i <= projects.length; i += 50) {
-                projectsChunk = projects.slice(i, i + 50);
-
-                await Promise.all(projectsChunk.map(async project => {
-
-                    try {
-
-                        const invite = await client.fetchInvite(project.invite_url);
-                        console.log(`${invite.code} - ${invite.memberCount}`);
-
-                    } catch (err) {
-
-                        console.log(`Error: ${err.httpStatus}`);
-
-                    }
-
-                }));
-
-                await new Promise(r => setTimeout(r, 2000));
-            }
-        }
-
-        return res.send();
-
-    });
+    dbConnection.query('SELECT id, twitter_link, invite_url FROM projects',
+        async (err, projects) => {
+            await updateTwitterFollowers(projects);
+            await updateDiscordCounts(projects);
+            return res.send();
+        })
 
 });
 
