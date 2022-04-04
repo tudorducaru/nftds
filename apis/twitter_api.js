@@ -39,7 +39,6 @@ const updateTwitterFollowers = async projects => {
                 }
             );
 
-            // Add the follower counts to the array of projects
             api_response.data.data.forEach(entry => {
 
                 // Find the project in the array by their Twitter link
