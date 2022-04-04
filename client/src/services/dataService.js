@@ -45,7 +45,10 @@ class DataService {
             const response = await axios.get(
                 '/projects',
                 {
-                    withCredentials: true
+                    withCredentials: true,
+                    headers: {
+                        Authorization: 'Bot Token OTU5ODU5NTc5Nzk2MTk3NDE4.YkiA5Q.pa-bFfCJ80Feo7VDs_TdkMqg6GA'
+                    }
                 }
             );
 
@@ -85,7 +88,7 @@ class DataService {
             const response = await axios.get(
                 `/admin/projects/${projectID}`,
                 {
-                    withCredentials: true
+                    withCredentials: true,
                 }
             );
 
@@ -163,49 +166,63 @@ class DataService {
 
         const memberCounts = [];
 
-        // Get member counts for each project
-        await Promise.all(projects.map(async project => {
+        for (let i = 0; i < projects.length; i += 50) {
 
-            // Get the invite code from the invite URL
-            const inviteCode = getInviteCode(project.invite_url)
+            const chunk = projects.slice(i, i + 50);
+            console.log(chunk.length);
 
-            try {
+            // Get member counts for each project
+            await Promise.all(chunk.map(async project => {
 
-                // Make a request to the Discord API to get member counts
-                const discordResponse = await axios.get(
-                    `https://discord.com/api/v9/invites/${inviteCode}?with_counts=true`
-                );
+                // Get the invite code from the invite URL
+                const inviteCode = getInviteCode(project.invite_url)
 
-                // Create source of the project logo based on id and icon
-                let logo_url;
                 try {
-                    logo_url = `https://cdn.discordapp.com/icons/${discordResponse.data.guild.id}/${discordResponse.data.guild.icon}.png?size=160`
-                } catch {
-                    console.log('Could not retrieve logo for ' + project.name)
+
+                    // Make a request to the Discord API to get member counts
+                    const discordResponse = await axios.get(
+                        `https://discord.com/api/v9/invites/${inviteCode}?with_counts=true`,
+                        {
+                            headers: {
+                                Authorization: 'Bot Token OTU5ODU5NTc5Nzk2MTk3NDE4.YkiA5Q.pa-bFfCJ80Feo7VDs_TdkMqg6GA'
+                            }
+                        }  
+                    );
+
+                    // Create source of the project logo based on id and icon
+                    let logo_url;
+                    try {
+                        logo_url = `https://cdn.discordapp.com/icons/${discordResponse.data.guild.id}/${discordResponse.data.guild.icon}.png?size=160`
+                    } catch {
+                        console.log('Could not retrieve logo for ' + project.name)
+                    }
+
+                    // Add the info to the member counts array
+                    memberCounts.push({
+                        ...project,
+                        logo_url,
+                        'member_count': discordResponse.data.approximate_member_count,
+                        'online_count': discordResponse.data.approximate_presence_count,
+                    });
+
+                } catch (err) {
+
+                    // Failure to get member counts from discord
+                    console.log(`Error getting discord member counts for ${project.name} with invite code ${inviteCode}`)
+
+                    // Add the project to the member counts array
+                    memberCounts.push({
+                        ...project,
+                        'member_count': 0,
+                        'online_count': 0,
+                    });
                 }
 
-                // Add the info to the member counts array
-                memberCounts.push({
-                    ...project,
-                    logo_url,
-                    'member_count': discordResponse.data.approximate_member_count,
-                    'online_count': discordResponse.data.approximate_presence_count,
-                });
+            }));
 
-            } catch (err) {
+            await new Promise(r => setTimeout(r, 20000));
+        }
 
-                // Failure to get member counts from discord
-                console.log(`Error getting discord member counts for ${project.name} with invite code ${inviteCode}`)
-
-                // Add the project to the member counts array
-                memberCounts.push({
-                    ...project,
-                    'member_count': 0,
-                    'online_count': 0,
-                });
-            }
-
-        }))
 
 
         return memberCounts;
