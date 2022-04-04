@@ -104,7 +104,7 @@ const Homepage = props => {
                         <GiHamburgerMenu size={32} color='white' />
                     </Navbar.Toggle>
                     <Navbar.Collapse id='navbar-buttons'>
-                        <Button className='custom-button mt-2' onClick={() => setShowSubmitModal(true)}>
+                        <Button className='custom-button mt-2' id='submit-project-button' onClick={() => setShowSubmitModal(true)}>
                             <img src={premium}></img>
                             ADD YOUR PROJECT FREE
                         </Button>

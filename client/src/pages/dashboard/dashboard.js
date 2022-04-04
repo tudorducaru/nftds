@@ -24,6 +24,7 @@ const Dashboard = () => {
     const [serverError, setServerError] = useState();
 
     const [loading, setLoading] = useState(!projects);
+    const [updatingProjectStats, setUpdatingProjectStats] = useState(false);
 
     const navigate = useNavigate();
 
@@ -48,6 +49,15 @@ const Dashboard = () => {
             .then(() => authContext.logoutUser());
     }
 
+    const handleRefreshProjectStats = () => {
+        setUpdatingProjectStats(true);
+
+        DataService.updateProjectStats()
+            .catch((errorMessage) => setServerError(errorMessage))
+            .finally(() => setUpdatingProjectStats(false));
+
+    }
+
     const handlePlusClick = () => {
         navigate('/admin/newProject');
     }
@@ -57,6 +67,10 @@ const Dashboard = () => {
             <Navbar id='admin-navbar'>
                 <Container>
                     <Navbar.Collapse className='justify-content-end'>
+                        {updatingProjectStats && <Spinner className='custom-spinner' animation='border' />}
+                        <Button className='custom-button me-2' onClick={handleRefreshProjectStats} disabled={updatingProjectStats}>
+                            Refresh project stats
+                        </Button>
                         <Button className='custom-button' onClick={handleLogout}>
                             Log out
                         </Button>

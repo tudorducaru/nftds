@@ -148,6 +148,28 @@ class DataService {
 
     }
 
+    // Update project stats
+    async updateProjectStats() {
+
+        try {
+
+            const response = await axios.put(
+                `/admin/projects/stats`,
+                {
+                    withCredentials: true
+                }
+            );
+
+            return;
+
+        } catch (err) {
+
+            // Failure to update project stats
+            throw err.response.data;
+
+        }
+    }
+
     // Submit project
     async submitProject(projectInfo) {
         try {

@@ -94,13 +94,13 @@
     box-shadow: none !important;
 }
 
-.navbar .custom-button {
+#submit-project-button {
     margin: 0 auto;
     width: auto;
     padding-right: 24px;
 }
 
-.navbar .custom-button img {
+#submit-project-button img {
     height: 16px;
     margin-right: 12px;
 }
@@ -111,7 +111,7 @@
         justify-content: end;
     }
 
-    .navbar .custom-button {
+    #submit-project-button {
         margin: 0;
     }
 }

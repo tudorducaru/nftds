@@ -290,6 +290,38 @@ app.delete('/admin/projects/:projectID', (req, res, next) => {
 
 });
 
+// Update project stats (discord counts, twitter followers, logo url)
+app.put('/admin/projects/stats', async (req, res, next) => {
+
+    // Get the projects from the database
+    dbConnection.query('SELECT id, twitter_link, invite_url FROM projects',
+        async (err, projects) => {
+
+            // Check for errors
+            if (err) {
+                console.log('Error retrieving projects from the database');
+                console.log(err.sqlMessage);
+                return;
+            }
+
+            // Try to update stats
+            try {
+
+                await updateTwitterFollowers(projects);
+                await updateDiscordCounts(projects);
+
+            } catch (err) {
+
+                console.log(err);
+                return res.status(500).send('Error updating project stats');
+
+            }
+
+
+            return res.send();
+        })
+});
+
 // Update project route
 app.put('/admin/projects/:projectID', (req, res, next) => {
 
@@ -444,17 +476,6 @@ app.get('/admin/csrfToken', (req, res, next) => {
     */
     res.cookie('XSRF-TOKEN', req.csrfToken(), { secure: true });
     return res.send();
-
-});
-
-app.get('/updateProjectStats', async (req, res, next) => {
-
-    dbConnection.query('SELECT id, twitter_link, invite_url FROM projects',
-        async (err, projects) => {
-            await updateTwitterFollowers(projects);
-            await updateDiscordCounts(projects);
-            return res.send();
-        })
 
 });
 
