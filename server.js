@@ -15,6 +15,7 @@ const updateDiscordCounts = require('./apis/discord_api');
 
 const setMintReminders = require('./cronJobs/mintReminders');
 const deleteMintedProjects = require('./cronJobs/deleteMintedProjects');
+const updateProjectStats = require('./cronJobs/updateProjectStats');
 
 const express = require('express');
 const app = express();
@@ -37,11 +38,10 @@ app.use((req, res, next) => {
 const path = require('path');
 app.use(express.static(path.resolve(__dirname, 'client/build')));
 
-// Send mint reminder emails
+// Set cron jobs
 setMintReminders(dbConnection);
-
-// Delete minted projects
 deleteMintedProjects(dbConnection);
+updateProjectStats();
 
 // Parse incoming cookies
 const cookieParser = require('cookie-parser');
