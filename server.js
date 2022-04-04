@@ -172,7 +172,7 @@ app.get('/projects', (req, res, next) => {
 
     // Query the database
     dbConnection.query(
-        'SELECT * FROM projects JOIN project_stats ON projects.id = project_stats.project_id',
+        'SELECT * FROM projects LEFT JOIN project_stats ON projects.id = project_stats.project_id',
         async (err, projects) => {
 
             // Check if there were any errors
