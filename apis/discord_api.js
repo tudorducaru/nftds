@@ -27,15 +27,18 @@ const updateDiscordCounts = async projects => {
 
                 // Fetch the server invite from the Discord API
                 const invite = await client.fetchInvite(project.invite_url);
-                
+
                 const members = invite.memberCount;
                 const online_members = invite.presenceCount;
 
+                // Construct the logo url
+                const logo_url = `https://cdn.discordapp.com/icons/${invite.channel.guildId}/${invite.channel.guild.icon}.png?size=160`
+
                 // Update Discord counts for this project
                 dbConnection.query(
-                    `INSERT INTO project_stats (project_id, discord_members, discord_online_members) VALUES (?, ?, ?)
-                     ON DUPLICATE KEY UPDATE discord_members = ?, discord_online_members = ?`,
-                    [project.id, members, online_members, members, online_members],
+                    `INSERT INTO project_stats (project_id, discord_members, discord_online_members, logo_url) VALUES (?, ?, ?, ?)
+                     ON DUPLICATE KEY UPDATE discord_members = ?, discord_online_members = ?, logo_url = ?`,
+                    [project.id, members, online_members, logo_url, members, online_members, logo_url],
                     (err) => {
 
                         if (err) {
