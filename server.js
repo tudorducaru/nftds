@@ -228,10 +228,22 @@ app.post('/admin/projects', (req, res, next) => {
     dbConnection.query(
         'INSERT INTO projects VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
         [id, name, invite_url, fakemeter, mint_date, mint_amount, mint_currency, website_link, twitter_link, created_at],
-        (err, results) => {
+        async (err, results) => {
 
             // Check if there were any errors
-            if (err) return res.status(500).send('Internal server error');
+            if (err) {
+                console.log(err);
+                return res.status(500).send('Internal server error');
+            }
+
+            // Get stats for this project
+            const project = {
+                id,
+                invite_url,
+                twitter_link
+            }
+            await updateDiscordCounts([project]);
+            await updateTwitterFollowers([project]);
 
             // Send back the project object
             return res.status(201).send({
