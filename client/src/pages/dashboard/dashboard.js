@@ -13,6 +13,8 @@ import DataService from '../../services/dataService';
 import Spinner from 'react-bootstrap/Spinner';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
+import search from '../../search.png';
+import { searchProjects } from '../../helpers/filtering';
 
 
 const Dashboard = () => {
@@ -25,6 +27,9 @@ const Dashboard = () => {
 
     const [loading, setLoading] = useState(!projects);
     const [updatingProjectStats, setUpdatingProjectStats] = useState(false);
+
+    // Filter by name
+    const [searchInput, setSearchInput] = useState('');
 
     const navigate = useNavigate();
 
@@ -97,8 +102,22 @@ const Dashboard = () => {
 
                 {loading && <Spinner className='custom-spinner' animation='border' />}
 
+                <Row>
+                    <Col className='p-0'>
+                        <div className='search-div mt-2'>
+                            <input
+                                onChange={(e) => setSearchInput(e.target.value)}
+                                placeholder='Search Discord server...'
+                                type='text'
+                            >
+                            </input>
+                            <img src={search}></img>
+                        </div>
+                    </Col>
+                </Row>
+
                 {
-                    projects.map(project =>
+                    searchProjects(projects, searchInput).map(project =>
                         <Row className='admin-project-container' key={project.id}
                             onClick={() => navigate(`/admin/updateProject/${project.id}`)}
                         >
