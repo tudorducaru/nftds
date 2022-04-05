@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 // Import pages
 import Homepage from './pages/homepage/homepage';
@@ -24,6 +25,14 @@ function App() {
 
   useEffect(() => {
 
+    // Initialize Google Analytics in production
+    if (window.location.hostname.includes('nftds')) {
+      ReactGA.initialize('UA-225009274-1');
+
+      // Log page views
+      ReactGA.pageview(window.location.pathname + window.location.search);
+    }
+
     // Check if the user is logged in
     DataService.verifyUser()
       .then(loggedIn => {
@@ -40,7 +49,7 @@ function App() {
 
       })
       .finally(() => setLoading(false));
-    
+
     // Try to get CSRF token from the server
     DataService.getCsrfToken()
       .catch(errorMessage => console.log(errorMessage));
