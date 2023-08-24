@@ -25,7 +25,7 @@ const updateTwitterFollowers = async projects => {
 
         // Construct the Twitter API url
         const usernames_param = twitter_usernames.join(',');
-        const twitter_url = `https://api.twitter.com/2/users/by?usernames=${usernames_param}&user.fields=public_metrics`;
+        const twitter_url = `https://api.twitter.com/1.1/users/lookup.json?screen_name=${usernames_param}`
 
         // Make a request to the Twitter API
         try {
@@ -39,11 +39,11 @@ const updateTwitterFollowers = async projects => {
                 }
             );
 
-            api_response.data.data.forEach(entry => {
+            api_response.data.forEach(entry => {
 
                 // Find the project in the array by their Twitter link
-                const project = projects.filter(p => p.twitter_link.toLowerCase() === `https://twitter.com/${entry.username}`.toLowerCase())[0];
-                const followers = entry.public_metrics.followers_count;
+                const project = projects.filter(p => p.twitter_link.toLowerCase() === `https://twitter.com/${entry.screen_name}`.toLowerCase())[0];
+                const followers = entry.followers_count;
 
                 // Update twitter_followers for this project
                 dbConnection.query(
@@ -65,7 +65,7 @@ const updateTwitterFollowers = async projects => {
 
         } catch (e) {
             console.log('Error retrieving Twitter follower counts');
-            console.log(e.response.data);
+            console.log(e);
         }
 
 
