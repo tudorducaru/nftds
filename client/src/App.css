@@ -42,7 +42,7 @@ body {
 }
 
 p, h1 {
-  color: #ebebeb;
+  color: #ebebeb !important;
   margin-bottom: 0 !important;
 }
 
@@ -64,6 +64,10 @@ form {
   padding-left: 16px;
   height: 48px;
   color: #ebebeb;
+}
+
+.form-control::placeholder {
+  color: rgb(117, 117, 117) !important;
 }
 
 .modal .form-control:focus,
