@@ -1,5 +1,5 @@
-const { dbConnection } = require('../db');
-const { Client, Intents } = require('discord.js');
+import { dbConnection } from '../db.js';
+import { Client, Intents } from 'discord.js';
 
 /*
     Retrieve Discord member counts and online member counts for
@@ -63,4 +63,4 @@ const updateDiscordCounts = async projects => {
     }
 }
 
-module.exports = updateDiscordCounts;
+export default updateDiscordCounts;

@@ -1,5 +1,5 @@
-const axios = require('axios');
-const { dbConnection } = require('../db');
+import axios from 'axios';
+import { dbConnection } from '../db.js';
 
 /*
     Makes a request to Twitter's API to get follower counts for projects
@@ -72,5 +72,5 @@ const updateTwitterFollowers = async projects => {
     }
 };
 
-module.exports = updateTwitterFollowers;
+export default updateTwitterFollowers;
 

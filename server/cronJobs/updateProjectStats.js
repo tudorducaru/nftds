@@ -1,7 +1,7 @@
-const cron = require('node-cron');
-const { dbConnection } = require('../db');
-const updateTwitterFollowers = require('../apis/twitter_api');
-const updateDiscordCounts = require('../apis/discord_api');
+import cron from 'node-cron';
+import { dbConnection } from '../db.js';
+import updateTwitterFollowers from '../apis/twitter_api.js';
+import updateDiscordCounts from '../apis/discord_api.js';
 
 /*
     Schedule a cron job every hour at half past
@@ -43,4 +43,4 @@ const updateProjectStats = () => {
 }
 
 // Export setup function
-module.exports = updateProjectStats;
+export default updateProjectStats;

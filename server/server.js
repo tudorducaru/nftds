@@ -1,30 +1,32 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const uuid = require('uuid');
-const cors = require('cors');
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { v4 as uuid } from 'uuid';
+import cors from 'cors';
+import 'dotenv/config';
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import { dbConnection, getDbConnection } from './db.js';
 
-// Configure environment variables
-require('dotenv').config();
+// Import APIs
+import updateDiscordCounts from './apis/discord_api.js';
+import updateTwitterFollowers from './apis/twitter_api.js';
 
-// Connect to MySQL database
-const { dbConnection, getDbConnection } = require('./db.js');
-getDbConnection();
-
-const updateTwitterFollowers = require('./apis/twitter_api');
-const updateDiscordCounts = require('./apis/discord_api');
-
-const setMintReminders = require('./cronJobs/mintReminders');
-const deleteMintedProjects = require('./cronJobs/deleteMintedProjects');
-const updateProjectStats = require('./cronJobs/updateProjectStats');
-
-const express = require('express');
-const app = express();
+// Import cron jobs
+import setMintReminders from './cronJobs/mintReminders.js';
+import deleteMintedProjects from './cronJobs/deleteMintedProjects.js';
+import updateProjectStats from './cronJobs/updateProjectStats.js';
 
 // Import email router
-const emailRouter = require('./emailRouter');
+import emailRouter from './emailRouter.js';
+
+// Entrypoint
+const app = express();
+
+// Connect to MySQL database
+getDbConnection();
 
 // Serve the static assets from the build folder
-const path = require('path');
 app.use(express.static(path.resolve('../client/build')));
 
 // Set cron jobs
@@ -33,7 +35,6 @@ deleteMintedProjects(dbConnection);
 updateProjectStats();
 
 // Parse incoming cookies
-const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
 // Parse body of requests
@@ -181,7 +182,7 @@ app.post('/admin/projects', (req, res, next) => {
     }
 
     // Get project information
-    let id = uuid.v1();
+    let id = uuid();
 
     // Need to switch 1st and 3rd field to be able to order by creation time
     const id_components = id.split('-');
@@ -371,7 +372,7 @@ app.post('/submit-project', (req, res, next) => {
     }
 
     // Get project information
-    let id = uuid.v1();
+    let id = uuid();
 
     // Need to switch 1st and 3rd field to be able to order by creation time
     const id_components = id.split('-');

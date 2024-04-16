@@ -1,5 +1,5 @@
-const cron = require('node-cron');
-const dateFNS = require('date-fns');
+import cron from 'node-cron';
+import { format } from 'date-fns';
 
 /*
     Schedule a cron job every day at 12:00 UTC 
@@ -21,7 +21,7 @@ const deleteMintedProjects = dbConnection => {
 
         // Get today's date
         const today = new Date();
-        const dateString = dateFNS.format(today, 'yyyy-MM-dd');
+        const dateString = format(today, 'yyyy-MM-dd');
 
         // Delete projects minted before today
         dbConnection.query(
@@ -40,4 +40,4 @@ const deleteMintedProjects = dbConnection => {
 };
 
 // Export setup function
-module.exports = deleteMintedProjects;
+export default deleteMintedProjects;

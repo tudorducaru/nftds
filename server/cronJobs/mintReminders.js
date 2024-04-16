@@ -1,6 +1,6 @@
-const cron = require('node-cron');
-const dateFNS = require('date-fns');
-const nodemailer = require('nodemailer');
+import cron from 'node-cron';
+import { format } from 'date-fns';
+import nodemailer from 'nodemailer';
 
 /*
     Get the transporter for sending emails
@@ -36,7 +36,7 @@ const setMintReminders = dbConnection => {
 
         // Get today's date
         const today = new Date();
-        const dateString = dateFNS.format(today, 'yyyy-MM-dd');
+        const dateString = format(today, 'yyyy-MM-dd');
 
         // Get today's mints
         dbConnection.query(`
@@ -77,4 +77,4 @@ const setMintReminders = dbConnection => {
 };
 
 // Export setup function
-module.exports = setMintReminders;
+export default setMintReminders;
