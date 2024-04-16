@@ -24,8 +24,8 @@ getDbConnection();
 app.use(express.static(path.resolve('../client/build')));
 
 // Set cron jobs
-setMintReminders();
-deleteMintedProjects();
+// setMintReminders();
+// deleteMintedProjects();
 updateProjectStats();
 
 // Parse incoming cookies

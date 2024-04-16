@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { getInviteCode } from '../helpers/inviteUrl';
-import { sortProjects } from '../helpers/sorting';
 
 class DataService {
 
@@ -10,10 +8,7 @@ class DataService {
             const response = await axios.get(
                 '/api/projects',
                 {
-                    withCredentials: true,
-                    headers: {
-                        Authorization: 'Bot Token OTU5ODU5NTc5Nzk2MTk3NDE4.YkiA5Q.pa-bFfCJ80Feo7VDs_TdkMqg6GA'
-                    }
+                    withCredentials: true
                 }
             );
 

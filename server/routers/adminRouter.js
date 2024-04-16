@@ -65,7 +65,7 @@ adminRouter.post('/', (req, res, next) => {
                 twitter_link
             }
             await updateDiscordCounts([project]);
-            await updateTwitterFollowers([project]);
+            // await updateTwitterFollowers([project]);
 
             // Send back the project object
             return res.status(201).send({
@@ -141,7 +141,7 @@ adminRouter.put('/stats', async (req, res, next) => {
             // Try to update stats
             try {
 
-                await updateTwitterFollowers(projects);
+                // await updateTwitterFollowers(projects);
                 await updateDiscordCounts(projects);
 
             } catch (err) {

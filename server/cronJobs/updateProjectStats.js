@@ -27,7 +27,7 @@ const updateProjectStats = () => {
                 // Try to update stats
                 try {
 
-                    await updateTwitterFollowers(projects);
+                    // await updateTwitterFollowers(projects);
                     await updateDiscordCounts(projects);
 
                     console.log('Successfully updated project stats');

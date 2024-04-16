@@ -19,7 +19,7 @@ const updateDiscordCounts = async projects => {
         projects array into chunks of 50 and wait 1s after each request batch
     */
     for (let i = 0; i <= projects.length; i += 50) {
-        chunk = projects.slice(i, i + 50);
+        const chunk = projects.slice(i, i + 50);
 
         await Promise.all(chunk.map(async project => {
 
