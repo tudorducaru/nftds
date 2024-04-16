@@ -5,7 +5,7 @@ class AuthService {
     async login(username, password) {
         try {
             await axios.post(
-                '/admin/login',
+                '/api/admin/login',
                 {
                     username, 
                     password
@@ -27,7 +27,7 @@ class AuthService {
     async logout() {
         try {
             await axios.post(
-                '/admin/logout',
+                '/api/admin/logout',
                 {
                     withCredentials: true
                 }

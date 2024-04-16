@@ -39,17 +39,6 @@ app.use(cookieParser());
 // Parse body of requests
 app.use(express.json());
 
-// Set up csrf protection
-const csurf = require('csurf');
-app.use(csurf({
-    cookie: {
-        httpOnly: true,
-
-        // Only send secure cookies in production
-        secure: process.env.NODE_ENV === 'production'
-    }
-}));
-
 // Custom CSRF error handler
 app.use((err, req, res, next) => {
     if (err.code !== 'EBADCSRFTOKEN') return next(err);
@@ -468,18 +457,6 @@ app.post('/set-mint-reminder', (req, res, next) => {
 
 });
 
-// Get CSRF token
-app.get('/admin/csrfToken', (req, res, next) => {
-
-    /*
-     Set the CSRF double submit cookie
-     Use the name of the cookie that axios will use as a value for the CSRF token
-    */
-    res.cookie('XSRF-TOKEN', req.csrfToken(), { secure: true });
-    return res.send();
-
-});
-
 /*
     Use email router to handle sending emails
     for andytheartist.xyz
@@ -490,7 +467,7 @@ app.use('/andytheartist', cors(), emailRouter);
 app.get('*', (req, res, next) => {
 
     // Serve the react app
-    return res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    return res.sendFile(path.resolve('../client/dist/index.html'));
 
 });
 

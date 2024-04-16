@@ -4,30 +4,13 @@ import { sortProjects } from '../helpers/sorting';
 
 class DataService {
 
-    // Make request that returns a CSRF token
-    async getCsrfToken() {
-        try {
-
-            const response = await axios.get(
-                '/admin/csrfToken'
-            );
-            return;
-
-        } catch (err) {
-
-            // Failure to get CSRF token
-            return err.response.data;
-
-        }
-    }
-
     // Check if the user is logged in
     async verifyUser() {
 
         try {
 
             const response = await axios.get(
-                '/admin/verifyUser'
+                '/api/admin/verifyUser'
             );
             return response.data;
 
@@ -43,7 +26,7 @@ class DataService {
         try {
 
             const response = await axios.get(
-                '/projects',
+                '/api/projects',
                 {
                     withCredentials: true,
                     headers: {
@@ -65,7 +48,7 @@ class DataService {
         try {
 
             const response = await axios.post(
-                '/admin/projects',
+                '/api/admin/projects',
                 projectInfo,
                 {
                     withCredentials: true
@@ -86,7 +69,7 @@ class DataService {
         try {
 
             const response = await axios.get(
-                `/admin/projects/${projectID}`,
+                `/api/admin/projects/${projectID}`,
                 {
                     withCredentials: true,
                 }
@@ -108,7 +91,7 @@ class DataService {
         try {
 
             const response = await axios.put(
-                `/admin/projects/${projectID}`,
+                `/api/admin/projects/${projectID}`,
                 projectInfo,
                 {
                     withCredentials: true
@@ -131,7 +114,7 @@ class DataService {
         try {
 
             const response = await axios.delete(
-                `/admin/projects/${projectID}`,
+                `/api/admin/projects/${projectID}`,
                 {
                     withCredentials: true
                 }
@@ -154,7 +137,7 @@ class DataService {
         try {
 
             const response = await axios.put(
-                `/admin/projects/stats`,
+                `/api/admin/projects/stats`,
                 {
                     withCredentials: true
                 }
@@ -175,7 +158,7 @@ class DataService {
         try {
 
             const response = await axios.post(
-                '/submit-project',
+                '/api/submit-project',
                 projectInfo,
                 {
                     withCredentials: true
@@ -196,7 +179,7 @@ class DataService {
         try {
 
             const response = await axios.post(
-                `/set-mint-reminder`,
+                `/api/set-mint-reminder`,
                 {
                     email, projectID
                 },
