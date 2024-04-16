@@ -17,9 +17,6 @@ import setMintReminders from './cronJobs/mintReminders.js';
 import deleteMintedProjects from './cronJobs/deleteMintedProjects.js';
 import updateProjectStats from './cronJobs/updateProjectStats.js';
 
-// Import email router
-import emailRouter from './emailRouter.js';
-
 // Entrypoint
 const app = express();
 
