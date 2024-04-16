@@ -2,12 +2,27 @@ import axios from 'axios';
 
 class AuthService {
 
+    async verifyUser() {
+        try {
+            await axios.get(
+                '/api/admin/verifyUser',
+                {
+                    withCredentials: true
+                }
+            );
+
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
     async login(username, password) {
         try {
             await axios.post(
                 '/api/admin/login',
                 {
-                    username, 
+                    username,
                     password
                 },
                 {
@@ -18,7 +33,7 @@ class AuthService {
             // Successful authentication
             return;
         } catch (error) {
-            
+
             // Failed authentication
             throw error.response.data;
         }

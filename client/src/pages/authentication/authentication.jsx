@@ -20,11 +20,6 @@ const Authentication = () => {
     // Error message sent from the server
     const [serverError, setServerError] = useState();
 
-    // Make request to random server route to get csrf cookie
-    useEffect(() => {
-        axios.get('hatz');
-    }, []);
-
     // Redirect to admin dashboard if user is logged in
     return authContext.user ? <Navigate to='/admin' replace={true} />
         : (

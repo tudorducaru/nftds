@@ -1,12 +1,12 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import { v4 as uuid } from 'uuid';
-import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import { dbConnection, getDbConnection } from './db.js';
+
+// Import routers
+import authRouter, { authenticateReq, csrf } from './routers/authRouter.js';
 
 // Import APIs
 import updateDiscordCounts from './apis/discord_api.js';
@@ -37,111 +37,8 @@ app.use(cookieParser());
 // Parse body of requests
 app.use(express.json());
 
-// Custom CSRF error handler
-app.use((err, req, res, next) => {
-    if (err.code !== 'EBADCSRFTOKEN') return next(err);
-
-    res.status(403);
-    res.send('Missing CSRF token');
-});
-
-/*
-    Middleware that authenticates requests
-    Extracts the token from the cookie
-    and verifies its validity
-*/
-const authenticateReq = (req, res, next) => {
-
-    // Retrieve jwt from cookie
-    const token = req.cookies.jwt;
-
-    if (!token) return res.status(403).send('JWT token not provided');
-
-    // Verify the token
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-
-        if (err) return res.status(403).send('JWT token invalid');
-
-        next();
-
-    });
-};
-
-
-// Admin login route
-app.post('/admin/login', (req, res, next) => {
-
-    // Check that the request has all the fields required
-    if (!req.body || !req.body.username || !req.body.password) return res.status(400).send('Username or password not provided');
-
-    // Get user information from the database
-    dbConnection.query(
-        'SELECT * FROM admins WHERE username = ?',
-        [req.body.username],
-        (err, results) => {
-
-            // Check if there were any errors
-            if (err) return res.status(500).send(err.sqlMessage);
-
-            // Check if user exists
-            if (results.length === 0) return res.status(404).send('User not found');
-
-            // Verify the user's credentials
-            bcrypt.compare(req.body.password, results[0].password, (err, result) => {
-
-                // Check if there were any errors
-                if (err) return res.status(500).send('Internal server error');
-
-                if (!result) return res.status(400).send('Incorrect password');
-
-                // Generate jwt
-                const token = jwt.sign({ id: results[0].id }, process.env.ACCESS_TOKEN_SECRET);
-
-                // Put the jwt in an httpOnly cookie
-                res.cookie('jwt', token, { httpOnly: true, secure: true, maxAge: 1000 * 3600 * 24 * 365 });
-                return res.send();
-
-            })
-
-        }
-    )
-});
-
-// Admin logout route
-app.post('/admin/logout', (req, res, next) => {
-
-    // Clear cookies
-    res.clearCookie('jwt');
-    return res.send();
-
-});
-
-/*
-    Verify user router
-    Returns a boolean that specifies whether the user is logged in or not
-*/
-app.get('/admin/verifyUser', (req, res, next) => {
-
-    /*
-        If a valid JWT is sent in a cookie, the user is logged it
-        Otherwise, no user is logged in
-    */
-    const token = req.cookies.jwt;
-
-    // No token sent
-    if (!token) return res.send(false);
-
-    // Verify the validity of the token
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-
-        if (err) return res.status(403).send('JWT token invalid');
-
-        // Valid token, user is logged in
-        return res.send(true);
-
-    });
-
-});
+// Set up the routers
+app.use('/admin', authRouter);
 
 // Get projects route
 app.get('/projects', (req, res, next) => {

@@ -4,24 +4,6 @@ import { sortProjects } from '../helpers/sorting';
 
 class DataService {
 
-    // Check if the user is logged in
-    async verifyUser() {
-
-        try {
-
-            const response = await axios.get(
-                '/api/admin/verifyUser'
-            );
-            return response.data;
-
-        } catch (err) {
-
-            // Failure to verify user
-            return err.response.data;
-
-        }
-    }
-
     async getProjects() {
         try {
 

@@ -1,4 +1,5 @@
 import './App.css'
+import axios from 'axios';
 
 import { Routes, Route } from 'react-router-dom';
 
@@ -12,10 +13,14 @@ import UpdateProject from './pages/updateProject/updateProject';
 import RequireAuth from './components/requireAuth';
 import { useContext, useEffect, useState } from 'react';
 
-import DataService from './services/dataService';
+import AuthService from './services/authService';
 import { AuthContext } from './contexts/authContext';
 
 function App() {
+
+  // change the csrf cookie name and header in axios
+  axios.defaults.xsrfCookieName = 'CSRF-TOKEN';
+  axios.defaults.xsrfHeaderName = 'CSRF-TOKEN';
 
   const { loginUser, logoutUser } = useContext(AuthContext);
 
@@ -25,7 +30,7 @@ function App() {
   useEffect(() => {
 
     // Check if the user is logged in
-    DataService.verifyUser()
+    AuthService.verifyUser()
       .then(loggedIn => {
 
         // Set the value of the user in the context according to the login status
