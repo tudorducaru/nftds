@@ -21,7 +21,7 @@ const app = express();
 getDbConnection();
 
 // Serve the static assets from the build folder
-app.use(express.static(path.resolve('../client/build')));
+app.use(express.static(path.resolve('../client/dist')));
 
 // Set cron jobs
 // setMintReminders();
@@ -35,11 +35,11 @@ app.use(cookieParser());
 app.use(express.json());
 
 // Set up the routers
-app.use('/admin', authRouter);
-app.use('/admin/projects', csrf, authenticateReq, adminRouter);
+app.use('/api/admin', authRouter);
+app.use('/api/admin/projects', csrf, authenticateReq, adminRouter);
 
 // Get projects route
-app.get('/projects', (req, res, next) => {
+app.get('/api/projects', (req, res, next) => {
 
     // Query the database
     dbConnection.query(
@@ -56,7 +56,7 @@ app.get('/projects', (req, res, next) => {
 });
 
 // Submit project request route
-app.post('/submit-project', (req, res, next) => {
+app.post('/api/submit-project', (req, res, next) => {
 
     // Check that all fields are in the request body
     if (
@@ -120,7 +120,7 @@ app.post('/submit-project', (req, res, next) => {
 });
 
 // Set mint reminder route
-app.post('/set-mint-reminder', (req, res, next) => {
+app.post('/api/set-mint-reminder', (req, res, next) => {
 
     // Check that both email and project ID have been provided
     if (!req.body || !req.body.email || !req.body.projectID) {
@@ -154,14 +154,6 @@ app.post('/set-mint-reminder', (req, res, next) => {
 
         }
     );;
-
-});
-
-// Handle all other get requests
-app.get('*', (req, res, next) => {
-
-    // Serve the react app
-    return res.sendFile(path.resolve('../client/dist/index.html'));
 
 });
 
