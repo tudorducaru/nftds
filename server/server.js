@@ -23,20 +23,9 @@ const app = express();
 // Import email router
 const emailRouter = require('./emailRouter');
 
-// Force https in production
-app.use((req, res, next) => {
-
-    if (process.env.NODE_ENV !== 'development' && req.header('x-forwarded-proto') !== 'https') {
-        return res.redirect('https://' + req.headers.host + req.url);
-    } else {
-        next();
-    }
-
-});
-
 // Serve the static assets from the build folder
 const path = require('path');
-app.use(express.static(path.resolve(__dirname, 'client/build')));
+app.use(express.static(path.resolve('../client/build')));
 
 // Set cron jobs
 setMintReminders(dbConnection);

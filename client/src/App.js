@@ -1,7 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import ReactGA from 'react-ga';
 
 // Import pages
 import Homepage from './pages/homepage/homepage';
