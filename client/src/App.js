@@ -25,14 +25,6 @@ function App() {
 
   useEffect(() => {
 
-    // Initialize Google Analytics in production
-    if (window.location.hostname.includes('nftds')) {
-      ReactGA.initialize('UA-225009274-1');
-
-      // Log page views
-      ReactGA.pageview(window.location.pathname + window.location.search);
-    }
-
     // Check if the user is logged in
     DataService.verifyUser()
       .then(loggedIn => {
