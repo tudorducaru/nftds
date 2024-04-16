@@ -2,14 +2,17 @@ FROM node:20.8.0-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY . . 
 
+# install server dependencies
+WORKDIR /app/server
 RUN npm install
 
-COPY . .
+# run client build
+WORKDIR /app/client
+RUN npm install
+RUN npm run build
 
-ENV PORT=3000
-
-EXPOSE 3000
-
+# run server
+WORKDIR /app/server
 CMD ["node", "server.js"]
