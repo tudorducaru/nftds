@@ -1,5 +1,6 @@
 import cron from 'node-cron';
 import { format } from 'date-fns';
+import { dbConnection } from '../db.js';
 
 /*
     Schedule a cron job every day at 12:00 UTC 
@@ -13,7 +14,7 @@ import { format } from 'date-fns';
 
     @param dbConnection - connection to the MySQL database
 */
-const deleteMintedProjects = dbConnection => {
+const deleteMintedProjects = () => {
 
     cron.schedule('0 13 * * *', () => {
 

@@ -27,8 +27,8 @@ getDbConnection();
 app.use(express.static(path.resolve('../client/build')));
 
 // Set cron jobs
-setMintReminders(dbConnection);
-deleteMintedProjects(dbConnection);
+setMintReminders();
+deleteMintedProjects();
 updateProjectStats();
 
 // Parse incoming cookies
@@ -454,12 +454,6 @@ app.post('/set-mint-reminder', (req, res, next) => {
     );;
 
 });
-
-/*
-    Use email router to handle sending emails
-    for andytheartist.xyz
-*/
-app.use('/andytheartist', cors(), emailRouter);
 
 // Handle all other get requests
 app.get('*', (req, res, next) => {

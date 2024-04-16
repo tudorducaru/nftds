@@ -1,6 +1,7 @@
 import cron from 'node-cron';
 import { format } from 'date-fns';
 import nodemailer from 'nodemailer';
+import { dbConnection } from '../db.js';
 
 /*
     Get the transporter for sending emails
@@ -23,9 +24,8 @@ const getEmailTransporter = () => {
 /*
     Schedule a cron job every day at 00:00 UTC
     that sends mint reminder emails to users
-    @param dbConnection - connection to the MySQL database
 */
-const setMintReminders = dbConnection => {
+const setMintReminders = () => {
 
     console.log('Scheduling mint reminders');
 
