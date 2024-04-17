@@ -157,6 +157,12 @@ app.post('/api/set-mint-reminder', (req, res, next) => {
 
 });
 
+app.get('*', (req, res, next) => {
+
+    // catch unhandled routes
+    res.sendFile(path.resolve('../client/dist/index.html'));
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
