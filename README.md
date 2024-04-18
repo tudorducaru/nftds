@@ -53,6 +53,13 @@ Create a `.env` file inside the `server/` folder and add the following variables
 - `ACCESS_TOKEN_SECRET`, `CSRF_TOKEN_SECRET` some server secrets
 - `DISCORD_BOT_TOKEN`: token for the Discord API, get it from the Discord developer portal
 
+Example JS script to generate secrets:
+
+```js
+const crypto = require('crypto')
+crypto.randomBytes(24).toString('base64')
+```
+
 ### Run the project
 
 Install the dependencies:
