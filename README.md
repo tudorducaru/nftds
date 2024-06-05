@@ -30,8 +30,10 @@ SHOW GRANTS FOR 'nftds_admin';
 
 Create the structure of the database using the `dump.sql` file (in Google Drive). The dump only contains the database schema, without any data.
 
+**NOTE:** you must use the superuser when creating the database structure
+
 ```bash
-mysql -u nftds_admin -p nftds < dump.sql
+mysql -u root -p nftds < dump.sql
 ```
 
 To generate a new admin user, go into the `server/admin_generator.js` file and modify the `password` variable to the desired password. Then run the script, which will output an ID and the hashed password. 
